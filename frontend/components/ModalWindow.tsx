@@ -40,7 +40,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
           Use the form below to a a new task and choose a context as well as a
           difficulty
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex px-5">
           <div>
             <input type="text" />
           </div>
