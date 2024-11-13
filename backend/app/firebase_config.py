@@ -15,23 +15,7 @@ db = firestore.client()
 
 habits_collection = db.collection("habits")
 
-def add_habit():
-    new_habit = {
-        "habit_name":"My Super Habit",
-        "icon": "Icon name",
-        "color": "#ff7800",
-        "context": "A small context for the habit",
-        "category": "Health"
-    }
-    habits_collection.add(new_habit)
-    print("Habit added")
 
-test = habits_collection.get()
-
-for t in test:
-    print(t.to_dict())
-
-add_habit()
 
 # habit_id = 'WM0QpJBXvWcID52AqOSM'  # Replace with the actual habit document ID
 # completed_date = datetime.now() # Use a consistent date format

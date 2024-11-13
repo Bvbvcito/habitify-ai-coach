@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
-from .routes import home
+from .routes import habits, home
+
+
+
 
 
 def create_app():
@@ -14,5 +17,6 @@ def create_app():
     # app.register_blueprint(contact.bp)
 
     app.register_blueprint(home.bp)
+    app.register_blueprint(habits.bp)
 
     return app

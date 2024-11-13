@@ -1,13 +1,14 @@
 "use client";
 
 import { signOutUser } from "@/lib/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import ProtectedRoute from "@/components/ProtectedRoutes";
 import useAuth from "@/hooks/useAuth";
 
 const Dashboard = () => {
   const { user } = useAuth();
   const router = useRouter();
+  const currentUrl = usePathname();
 
   const handleLogout = async () => {
     try {
@@ -41,6 +42,7 @@ const Dashboard = () => {
             Log Out
           </button>
         </span>
+        {currentUrl}
       </div>
     </ProtectedRoute>
   );
