@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged, Auth } from "firebase/auth";
 import { app } from "@/lib/firebase"; // Ensure the Firebase config is properly imported
-import Link from "next/link";
+import SignInPage from "@/components/SignInButton";
 
-export default function HomePage() {
+export default function SignIn() {
   const [modal, setModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -42,11 +42,15 @@ export default function HomePage() {
         edit_method="Add"
       />
       <div className="container bg-gray-200 mx-auto h-full min-h-screen items-center justify-center flex flex-col">
-        <div className="text-slate-600 text-[2rem]">HOMEPAGE GOES HERE</div>
+        <div className="text-slate-600 text-[2rem]">HOMEPAGE</div>
         <div>
-          <Link href="/signin">
-            <button>Sign in / Create Account</button>
-          </Link>
+          <button
+            onClick={() => setModal(true)}
+            className="bg-orange-500 text-white rounded-full p-2"
+          >
+            Open Modal
+          </button>
+          <SignInPage />
         </div>
       </div>
     </>

@@ -7,7 +7,7 @@ bp = Blueprint('habits', __name__)
 
 def habits():
     if request.method == "GET":
-        return add_new_habit()  
+        return get_habits_data()  
     
     if request.method == "POST":
         return add_new_habit()

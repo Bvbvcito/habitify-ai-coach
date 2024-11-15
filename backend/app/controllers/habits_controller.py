@@ -1,11 +1,14 @@
-from ..firebase_config import db, firestore
-from flask import request, jsonify
+#Import Db Instance from firebase_config
+from ..firebase_config import db
+
+from flask import jsonify
 from pprint import pprint
 import random
+#Import Categories as Dictionary
 from ..staticdata.categories import habit_categories
 
+
 #Initialize db and collection
-db = firestore.client()
 habits_collection = db.collection("habits")
 
 

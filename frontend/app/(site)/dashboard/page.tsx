@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   return (
     <ProtectedRoute>
-      <div className="mx-auto h-full min-h-screen items-center justify-center flex flex-col gap-5">
+      <div>
         <h1 className="text-slate-800 text-[3rem]">Dashboard</h1>
         {user ? (
           <p>

@@ -29,10 +29,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="max-w-6xl mx-auto">
-          <AnimatedNavBar />
+        <div
+          id="bg_color_container"
+          className="w-full min-h-screen overflow-auto duration-500"
+        >
+          <div className="h-full max-w-6xl mx-auto flex w-full items-center  transition-colors">
+            <div className="w-full mx-auto">
+              <AnimatedNavBar />
+              <div className="mx-5 mt-3">{children}</div>
+            </div>
+          </div>
         </div>
-        {children}
       </body>
     </html>
   );
