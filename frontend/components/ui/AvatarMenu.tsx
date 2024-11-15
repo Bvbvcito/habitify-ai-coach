@@ -34,7 +34,7 @@ const AvatarMenu = ({ user }: AvatarMenuProps) => {
     }
   }, [bgColor]); // Dependency array includes bgColor
 
-  const changeColor = (color) => {
+  const changeColor = (color: string) => {
     setBgColor(color); // Update the bgColor state
   };
 
