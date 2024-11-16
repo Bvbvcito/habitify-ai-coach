@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "@/app/globals.css";
 import AnimatedNavBar from "@/components/ui/AnimatedNavBar";
-
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,22 +14,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div
-          id="bg_color_container"
-          className="w-full min-h-screen overflow-auto duration-500"
-        >
-          <div className="h-full max-w-6xl mx-auto flex w-full items-center  transition-colors">
-            <div className="w-full mx-auto">
-              <AnimatedNavBar />
-              <div className="mx-5 mt-3">{children}</div>
-            </div>
-          </div>
+    <div
+      id="bg_color_container"
+      className="w-full relative min-h-screen overflow-auto duration-500"
+      style={{
+        backgroundImage:
+          "url('/img/blue-abstract-waves-3840x2160-17108-gray.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed", // Optional for a fixed background effect
+        backgroundBlendMode: "overlay", // Adds mix-blend-overlay effect
+
+        backgroundColor: "#6b21a8", // Adds a background color for blending
+      }}
+    >
+      <div className="relative z-10 h-full max-w-6xl mx-auto flex w-full items-center transition-colors">
+        <div className="w-full mx-auto">
+          <AnimatedNavBar />
+          <div className="mx-10 mt-7">{children}</div>
         </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }

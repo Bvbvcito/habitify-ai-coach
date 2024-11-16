@@ -1,7 +1,7 @@
 #Import Db Instance from firebase_config
 from ..firebase_config import db
 
-from flask import jsonify
+from flask import request, jsonify, Blueprint
 from pprint import pprint
 import random
 #Import Categories as Dictionary
@@ -11,8 +11,12 @@ from ..staticdata.categories import habit_categories
 #Initialize db and collection
 habits_collection = db.collection("habits")
 
+# Create a Blueprint for habits
+
+habits_bp = Blueprint('habits', __name__, url_prefix='/habits')
 
 #Retreive all habits
+@habits_bp.route('/', methods=['GET'])
 def get_habits_data():
     try:
         # Retrieve all documents from the habits collection
@@ -34,6 +38,11 @@ def get_habits_data():
         print("Exception occurred while retrieving habits:", str(e))
         return jsonify({"error": "Failed to retrieve habits.", "details": str(e)}), 500
 
+
+#Testing same method different URL
+@habits_bp.route('/test', methods=['GET'])
+def flamby():
+    return(habit_categories)
 
 #Add a new habit
 def add_new_habit():
@@ -67,3 +76,7 @@ def add_new_habit():
     else:
         print("Error: Firestore did not return a valid reference.")
         return jsonify({"error": "Failed to add habit."}), 500
+
+
+if __name__ == '__main__':
+    pprint(habit_categories)

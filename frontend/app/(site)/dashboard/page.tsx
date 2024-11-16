@@ -1,51 +1,39 @@
 "use client";
+import { useState } from "react";
+import { User } from "firebase/auth";
+import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 
-import { signOutUser } from "@/lib/auth";
-import { useRouter, usePathname } from "next/navigation";
-import ProtectedRoute from "@/components/ProtectedRoutes";
-import useAuth from "@/hooks/useAuth";
+const DashBoard = () => {
+  const [user, setUser] = useState<User | null>(null);
 
-const Dashboard = () => {
-  const { user } = useAuth();
-  const router = useRouter();
-  const currentUrl = usePathname();
-
-  const handleLogout = async () => {
-    try {
-      await signOutUser();
-      router.push("/"); // Redirect to sign-in page after logout
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+  /*
+Function used to retreive user information from the ProtectedRoute middleware
+*/
+  const handleAuthSuccess = (user_details: User) => {
+    setUser(user_details); // Store the user info in state
+    console.log(user);
   };
+  /*
+Function used to retreive user information from the ProtectedRoute middleware
+*/
 
   return (
-    <ProtectedRoute>
-      <div>
-        <h1 className="text-slate-800 text-[3rem]">Dashboard</h1>
-        {user ? (
-          <p>
-            Welcome, {user.displayName || "User"}! You are signed in. and your
-            uid is: <span className="font-bold">{user.uid}</span>
-          </p>
-        ) : (
-          <button className="" onClick={handleLogout}>
-            Log Out
-          </button>
-        )}
-        <span>
-          {" "}
-          <button
-            className="bg-orange-500 rounded-full text-white px-2 py-1"
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
-        </span>
-        {currentUrl}
-      </div>
+    <ProtectedRoute onAuthSuccess={handleAuthSuccess}>
+      <>
+        <h1>User Dashboard</h1>
+
+        <div className="flex gap-3 mt-5  w-full">
+          <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex transition-all rounded-3xl bg-slate-300 h-[30rem] items-center justify-center">
+            Tasks Listing Component
+          </div>
+
+          <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex transition-all rounded-3xl bg-slate-300 h-[30rem] items-center justify-center">
+            Dashboard Modules
+          </div>
+        </div>
+      </>
     </ProtectedRoute>
   );
 };
 
-export default Dashboard;
+export default DashBoard;

@@ -2,29 +2,33 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { User } from "firebase/auth";
 import { AnimatePresence, motion } from "framer-motion";
-import { signOutUser } from "@/lib/auth";
+import { signOutUser } from "@/lib/authController";
 import { useRouter } from "next/navigation";
 import { BiSolidExit } from "react-icons/bi";
 import { IoIosSettings } from "react-icons/io";
 import { RiDashboard3Fill } from "react-icons/ri";
 
-interface AvatarMenuProps {
+type ThemeColor = "emerald" | "amber" | "purple" | "slate";
+
+interface NavBarAvatarProps {
   user: User | null;
+  setMenuColor: React.Dispatch<React.SetStateAction<ThemeColor>>; // Match the parent type
 }
 
 const colors = [
   { name: "emerald", value: "bg-emerald-700", hex: "#047857" },
-  { name: "purple", value: "bg-purple-700", hex: "#6b21a8" },
-  { name: "orange", value: "bg-orange-700", hex: "#92400e" },
+  { name: "purple", value: "bg-purple-800", hex: "#6b21a8" },
+  { name: "amber", value: "bg-amber-500", hex: "#b45309" },
   { name: "slate", value: "bg-slate-700", hex: "#334155" },
 ];
 
-const AvatarMenu = ({ user }: AvatarMenuProps) => {
+const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
   const [menu, setMenu] = useState<boolean>(false);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const [bgColor, setBgColor] = useState("#047857"); // Initial background color
+  const [bgColor, setBgColor] = useState("#6b21a8"); // Initial background color
+  const [submenucolor, setSubMenuColor] = useState("purple"); // Initial background color
 
   // useEffect to change the main background color whenever bgColor changes, add function to store localdata
   useEffect(() => {
@@ -109,13 +113,17 @@ const AvatarMenu = ({ user }: AvatarMenuProps) => {
               bounce: 0.8, // Bounce factor (0 to 1)
             }}
             exit={{ opacity: 0, y: 80, transition: { type: "linear" } }}
-            className="absolute right-0 mt-2 w-56 rounded-2xl shadow-lg bg-purple-800 p-2 ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+            className={`absolute right-0 mt-2 w-56 rounded-2xl shadow-lg bg-${submenucolor}-600 p-2 ring-1 ring-black ring-opacity-5 focus:outline-none z-10`}
           >
             <div className="flex gap-2 mb-3 py-4 border-b border-white/50 justify-center text-purple-300 items-center">
               Theme:
               {colors.map((color, index) => (
                 <button
-                  onClick={() => changeColor(color.hex)}
+                  onClick={() => {
+                    changeColor(color.hex);
+                    setMenuColor(color.name as ThemeColor);
+                    setSubMenuColor(color.name);
+                  }}
                   className={`${color.value} ${
                     color.hex == bgColor ? "border-white/50 border-2" : ""
                   } w-6 h-6 rounded-full hover:border-white/30 hover:border-2 `}
@@ -137,7 +145,7 @@ const AvatarMenu = ({ user }: AvatarMenuProps) => {
               <li
                 onClick={() => {
                   toggleMenu(); // Call your additional function here
-                  router.push("/tests"); // Navigate to "/tests"
+                  router.push("/habits  "); // Navigate to "/tests"
                 }}
                 className="hover:bg-white flex gap-1 rounded-full py-2 pl-4 items-center hover:text-purple-800 cursor-pointer"
               >
@@ -158,4 +166,4 @@ const AvatarMenu = ({ user }: AvatarMenuProps) => {
   );
 };
 
-export default AvatarMenu;
+export default NavBarAvatar;

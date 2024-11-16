@@ -1,19 +1,37 @@
 // app/auth/signin/page.js
 "use client";
-import { signInWithGoogle } from "@/lib/auth";
+import { signInWithGoogle } from "@/lib/authController";
+import { AiFillGoogleCircle } from "react-icons/ai";
 
-const SignInPage = () => {
+/**
+ * SignInButton Component
+ *
+ * A client-side component that renders a button for signing in with Google
+ * The primary button uses Google
+ * authentication and displays an icon alongside the text.
+ *
+ * @component
+ * @file app/auth/signin/page.js
+ * @description Renders buttons for user authentication.
+ *
+ * @requires "@/lib/authController" - Contains the `signInWithGoogle` function.
+ * @requires "react-icons/ai" - Provides the Google icon (`AiFillGoogleCircle`).
+ *
+ * @returns {JSX.Element} The rendered button components.
+ *
+ * @example
+ * // Example Usage
+ * <SignInButton />
+ */
+const SignInButton = () => {
   return (
-    <div>
-      <h1 className="text-[3rem] text-slate-800">Sign in with Google</h1>
-      <button
-        className="bg-green-500 text-white rounded-full px-2 py-2"
-        onClick={signInWithGoogle}
-      >
-        Sign in with Google
+    <>
+      <button className="custom-button flex w-full" onClick={signInWithGoogle}>
+        <AiFillGoogleCircle className="w-[30px] h-[30px]" />{" "}
+        <span className="font-bold">Sign in with Google</span>
       </button>
-    </div>
+    </>
   );
 };
 
-export default SignInPage;
+export default SignInButton;

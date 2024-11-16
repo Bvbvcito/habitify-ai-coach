@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged, Auth } from "firebase/auth";
 import { app } from "@/lib/firebase"; // Ensure the Firebase config is properly imported
-import SignInPage from "@/components/SignInButton";
+import SignInButton from "@/components/SignInButton";
 
 export default function SignIn() {
   const [modal, setModal] = useState<boolean>(false);
@@ -32,7 +32,12 @@ export default function SignIn() {
   }, [auth, router]);
 
   // Optionally show a loading indicator while checking auth state
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="w-full h-full bg-purple-700 flex items-center justify-center text-white min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
 
   return (
     <>
@@ -41,16 +46,20 @@ export default function SignIn() {
         show={modal}
         edit_method="Add"
       />
-      <div className="container bg-gray-200 mx-auto h-full min-h-screen items-center justify-center flex flex-col">
-        <div className="text-slate-600 text-[2rem]">HOMEPAGE</div>
-        <div>
-          <button
+      <div className="bg-purple-700 text-white mx-auto h-full min-h-screen items-center justify-center flex flex-col">
+        <div className="p-10 rounded-xl shadow-lg bg-white/10 border w-[25rem] border-white/15 flex items-center justify-center flex-col gap-4">
+          <h1 className="text-[2rem]">Sign Up to Habitify</h1>
+          <h2 className="text-[1rem]">
+            To start using Habitify and become a master at the art of
+            completion, please use google sign-in below.
+          </h2>
+          {/* <button
             onClick={() => setModal(true)}
             className="bg-orange-500 text-white rounded-full p-2"
           >
             Open Modal
-          </button>
-          <SignInPage />
+          </button> */}
+          <SignInButton />
         </div>
       </div>
     </>

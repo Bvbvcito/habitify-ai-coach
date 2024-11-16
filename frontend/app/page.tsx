@@ -32,7 +32,12 @@ export default function HomePage() {
   }, [auth, router]);
 
   // Optionally show a loading indicator while checking auth state
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="w-full h-full bg-purple-700 flex items-center justify-center text-white min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
 
   return (
     <>

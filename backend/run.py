@@ -1,6 +1,6 @@
-from app import create_app
+from app import launch_backend_server
 
-app = create_app()
+app = launch_backend_server()
 
 if __name__ == '__main__':
     app.run(debug=True)

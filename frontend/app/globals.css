@@ -13,3 +13,13 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+h1 {
+  font-size: 30px;
+  color: white;
+  @apply font-light;
+}
+
+.custom-button {
+  @apply bg-white/10 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/30 items-center;
+}
