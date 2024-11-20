@@ -47,7 +47,9 @@ export default function HomePage() {
         edit_method="Add"
       />
       <div className="container bg-gray-200 mx-auto h-full min-h-screen items-center justify-center flex flex-col">
-        <div className="text-slate-600 text-[2rem]">HOMEPAGE GOES HERE</div>
+        <div className="text-slate-600 text-[2rem]">
+          <span className="font-normal">HOMEPAGE</span> GOES HERE
+        </div>
         <div>
           <Link href="/signin">
             <button>Sign in / Create Account</button>

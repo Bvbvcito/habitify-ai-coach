@@ -1,18 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import FloatingLabelInput from "@/components/ui/InputField";
-import ProtectedRoute from "@/components/auth/ProtectedRoutes";
-import { User } from "firebase/auth";
 import { MdOutlineAddCircle } from "react-icons/md";
 import { MdError } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
-const CreateHabit = () => {
+const HabitsModal = ({
+  user,
+  onClose,
+}: {
+  user: string;
+  onClose: () => void;
+}) => {
   //Initialize Router
   const router = useRouter();
   // Form Errors
   const [selectError, setSelectError] = useState("");
-  const [user, setUser] = useState<User | null>(null);
   const [categories, setCategories] = useState<{
     [key: string]: { description: string; color: string };
   }>({});
@@ -41,7 +44,7 @@ const CreateHabit = () => {
     if (user) {
       setFormData((prev) => ({
         ...prev,
-        user_id: user.uid,
+        user_id: user,
       }));
     }
   }, [user]);
@@ -52,7 +55,7 @@ const CreateHabit = () => {
     context: "",
     category: "",
     color: "",
-    user_id: user?.uid,
+    user_id: user,
   });
 
   //Handle form changes
@@ -88,7 +91,7 @@ const CreateHabit = () => {
       const result = await response.json();
 
       if (response.ok) {
-        router.push("/dashboard");
+        onClose();
       } else {
         console.error("Error creating habit:", result);
       }
@@ -98,66 +101,64 @@ const CreateHabit = () => {
   };
 
   return (
-    <ProtectedRoute onAuthSuccess={(user) => setUser(user)}>
-      <>
-        <h1>Create New Habit</h1>
-        <form
-          onSubmit={processFormData}
-          className="grid grid-cols-2 gap-x-4 mt-10  "
-        >
-          <FloatingLabelInput
-            name="habit_name"
-            value={formData.habit_name}
-            placeholder="Habit Name"
+    <>
+      <h1>Create New Habit {user}</h1>
+      <form
+        onSubmit={processFormData}
+        className="grid grid-cols-2 gap-x-4 mt-10  "
+      >
+        <FloatingLabelInput
+          name="habit_name"
+          value={formData.habit_name}
+          placeholder="Habit Name"
+          onChange={handleFormChanges}
+        />
+        <FloatingLabelInput
+          name="context"
+          value={formData.context}
+          placeholder="Context"
+          onChange={handleFormChanges}
+        />
+        <div className="relative">
+          {selectError && (
+            <div className="relative bg-red-500 rounded-md flex items-center gap-2 text-white py-1 px-2 mb-5 shadow-sm text-sm font-bold">
+              <MdError className="w-[20px] h-[20px]" />
+              {selectError}
+              <div className="absolute bottom-[-8px] left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rotate-45"></div>
+            </div>
+          )}
+          <select
+            className={`w-full font-medium text-gray-500 border rounded-md px-2 py-2 bg-white focus:outline-none ${
+              selectError
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-blue-400"
+            }`}
+            name="category"
             onChange={handleFormChanges}
-          />
-          <FloatingLabelInput
-            name="context"
-            value={formData.context}
-            placeholder="Context"
-            onChange={handleFormChanges}
-          />
-          <div className="relative">
-            {selectError && (
-              <div className="relative bg-red-500 rounded-md flex items-center gap-2 text-white py-1 px-2 mb-5 shadow-sm text-sm font-bold">
-                <MdError className="w-[20px] h-[20px]" />
-                {selectError}
-                <div className="absolute bottom-[-8px] left-1/2 transform -translate-x-1/2 w-4 h-4 bg-red-500 rotate-45"></div>
-              </div>
-            )}
-            <select
-              className={`w-full font-medium text-gray-500 border rounded-md px-2 py-2 bg-white focus:outline-none ${
-                selectError
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-blue-400"
-              }`}
-              name="category"
-              onChange={handleFormChanges}
+          >
+            <option
+              className="text-gray-500 bg-white/70 backdrop-blur-md"
+              value=""
             >
-              <option
-                className="text-gray-500 bg-white/70 backdrop-blur-md"
-                value=""
-              >
-                Select a category
+              Select a category
+            </option>
+            {Object.entries(categories).map(([key, value]) => (
+              <option key={key} value={key}>
+                {key} - {value.description}
               </option>
-              {Object.entries(categories).map(([key, value]) => (
-                <option key={key} value={key}>
-                  {key} - {value.description}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
+        </div>
 
-          <div className="col-span-2 mt-10  flex justify-center items-center">
-            <button className="custom-button flex">
-              <MdOutlineAddCircle className="w-[30px] h-[30px]" />{" "}
-              <span className="font-bold">Create New Habit</span>
-            </button>
-          </div>
-        </form>
-      </>
-    </ProtectedRoute>
+        <div className="col-span-2 mt-10  flex justify-center items-center">
+          <button className="custom-button flex">
+            <MdOutlineAddCircle className="w-[30px] h-[30px]" />{" "}
+            <span className="font-bold">Create New Habit</span>
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
-export default CreateHabit;
+export default HabitsModal;

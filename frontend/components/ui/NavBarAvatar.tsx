@@ -115,7 +115,7 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
             exit={{ opacity: 0, y: 80, transition: { type: "linear" } }}
             className={`absolute right-0 mt-2 w-56 rounded-2xl shadow-lg bg-${submenucolor}-600 p-2 ring-1 ring-black ring-opacity-5 focus:outline-none z-10`}
           >
-            <div className="flex gap-2 mb-3 py-4 border-b border-white/50 justify-center text-purple-300 items-center">
+            <div className="flex gap-2 mb-3 py-4 border-b border-white/50 justify-center text-white/70 items-center">
               Theme:
               {colors.map((color, index) => (
                 <button
@@ -137,7 +137,7 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
                   toggleMenu(); // Call your additional function here
                   router.push("/dashboard"); // Navigate to "/tests"
                 }}
-                className="hover:bg-white flex gap-1 rounded-full py-2 pl-4 items-center hover:text-purple-800 cursor-pointer"
+                className="hover:bg-white flex gap-1 rounded-full py-2 pl-4 items-center hover:text-purple-800 cursor-pointer "
               >
                 <RiDashboard3Fill />
                 User Dashboard
@@ -147,14 +147,14 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
                   toggleMenu(); // Call your additional function here
                   router.push("/habits  "); // Navigate to "/tests"
                 }}
-                className="hover:bg-white flex gap-1 rounded-full py-2 pl-4 items-center hover:text-purple-800 cursor-pointer"
+                className="hover:bg-white flex gap-1 rounded-full py-2 pl-4 items-center hover:text-purple-800 cursor-pointer "
               >
                 <IoIosSettings />
                 Manage Habits
               </li>
               <li
                 onClick={handleLogout}
-                className="hover:bg-red-700 rounded-full py-2 pl-4 hover:text-white cursor-pointer flex gap-1 items-center"
+                className="hover:bg-red-700 rounded-full py-2 pl-4 hover:text-white cursor-pointer  flex gap-1 items-center"
               >
                 <BiSolidExit /> Logout
               </li>

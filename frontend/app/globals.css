@@ -8,18 +8,27 @@
 }
 
 body {
-  font-size: 14px;
+  @apply font-light;
+  font-size: 16px;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 h1 {
   font-size: 30px;
   color: white;
-  @apply font-light;
+}
+
+h3 {
+  font-size: 18px;
+  color: white;
 }
 
 .custom-button {
   @apply bg-white/10 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/30 items-center;
+}
+
+.signup-button {
+  @apply bg-purple-800 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/30 items-center;
 }

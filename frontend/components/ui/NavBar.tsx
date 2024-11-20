@@ -21,7 +21,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`sm:mx-5 sm:rounded-[35px] sm:mt-10 bg-${themecolor}-600 px-5 shadow-sm justify-between flex py-2 items-center`}
+      className={`sm:mx-5 sm:rounded-[35px]  sm:mt-10 bg-${themecolor}-600 px-5 shadow-sm justify-between flex py-2 items-center`}
     >
       <div>Logo</div>
       <ul
@@ -35,9 +35,9 @@ const NavBar = () => {
             Dashboard
           </li>
         ) : (
-          <Link href="/dashboard">
+          <Link href="/dashboard" prefetch={false}>
             <li
-              className={`hover:bg-white hover:${textColorClass[themecolor]} rounded-full text-white font-bold px-4 py-2`}
+              className={`hover:bg-white hover:${textColorClass[themecolor]} rounded-full text-white  px-4 py-2 transition-all duration-200`}
             >
               Dashboard
             </li>
@@ -52,9 +52,9 @@ const NavBar = () => {
             Manage Habits
           </li>
         ) : (
-          <Link href="/habits">
+          <Link href="/habits" prefetch={false}>
             <li
-              className={`hover:bg-white  hover:${textColorClass[themecolor]} rounded-full text-white font-bold px-4 py-2`}
+              className={`hover:bg-white  hover:${textColorClass[themecolor]} rounded-full text-white  px-4 py-2 transition-all duration-200`}
             >
               Manage Habits
             </li>

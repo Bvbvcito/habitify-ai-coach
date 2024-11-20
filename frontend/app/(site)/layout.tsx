@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import AnimatedNavBar from "@/components/ui/AnimatedNavBar";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +17,7 @@ export default function RootLayout({
       id="bg_color_container"
       className="w-full relative min-h-screen overflow-auto duration-500"
       style={{
-        backgroundImage:
-          "url('/img/blue-abstract-waves-3840x2160-17108-gray.jpeg')",
+        backgroundImage: "url('/img/bg_habits.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed", // Optional for a fixed background effect
@@ -28,10 +26,10 @@ export default function RootLayout({
         backgroundColor: "#6b21a8", // Adds a background color for blending
       }}
     >
-      <div className="relative z-10 h-full max-w-6xl mx-auto flex w-full items-center transition-colors">
+      <div className=" h-full max-w-6xl mx-auto flex w-full items-center transition-colors">
         <div className="w-full mx-auto">
           <AnimatedNavBar />
-          <div className="mx-10 mt-7">{children}</div>
+          <div className="mx-7 mt-7">{children}</div>
         </div>
       </div>
     </div>

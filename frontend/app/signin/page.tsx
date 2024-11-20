@@ -47,8 +47,8 @@ export default function SignIn() {
         edit_method="Add"
       />
       <div className="bg-purple-700 text-white mx-auto h-full min-h-screen items-center justify-center flex flex-col">
-        <div className="p-10 rounded-xl shadow-lg bg-white/10 border w-[25rem] border-white/15 flex items-center justify-center flex-col gap-4">
-          <h1 className="text-[2rem]">Sign Up to Habitify</h1>
+        <div className="p-10 rounded-xl shadow-lg bg-white/10 border w-[25rem] border-white/15 flex items-center justify-center flex-col gap-6">
+          <h1 className="text-[2rem] font-normal">Sign Up to Habitify</h1>
           <h2 className="text-[1rem]">
             To start using Habitify and become a master at the art of
             completion, please use google sign-in below.

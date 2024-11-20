@@ -1,39 +1,39 @@
 habit_categories = {
     "Health & Wellness": {
         "description": "Physical and mental health, self-care, fitness, hydration.",
-        "color": "#FF5733"  # A vibrant orange-red color
+        "color": "#7834F6"  
     },
     "Productivity & Focus": {
         "description": "Work, study, planning, time management, and task completion.",
-        "color": "#33A1FF"  # A calm blue color
+        "color": "#3161A4"  
     },
     "Learning & Growth": {
         "description": "Education, skill-building, reading, and continuous improvement.",
-        "color": "#FFD700"  # A bright yellow color
+        "color": "#B639DC"  
     },
     "Relationships & Social": {
         "description": "Family time, friendships, socializing, and networking.",
-        "color": "#FF69B4"  # A friendly pink color
+        "color": "#70E8A8"  
     },
     "Mindfulness & Spirituality": {
         "description": "Meditation, mindfulness practices, gratitude, and reflection.",
-        "color": "#6A0DAD"  # A deep purple color
+        "color": "#D53840"  
     },
     "Finance & Budgeting": {
         "description": "Savings, budgeting, investments, and financial goals.",
-        "color": "#228B22"  # A stable green color
+        "color": "#DFAC1D"  
     },
     "Creativity & Hobbies": {
         "description": "Art, music, crafts, personal projects, and creative pursuits.",
-        "color": "#FF4500"  # A fiery orange color
+        "color": "#878787" 
     },
     "Home & Environment": {
         "description": "Cleaning, organizing, home maintenance, and eco-friendly habits.",
-        "color": "#8B4513"  # A natural brown color
+        "color": "#178661"  
     },
     "Nutrition & Diet": {
         "description": "Meal planning, healthy eating, cooking, and dietary goals.",
-        "color": "#32CD32"  # A fresh lime green color
+        "color": "#13C3E2"  
     }
 }
 

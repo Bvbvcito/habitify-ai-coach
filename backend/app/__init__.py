@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .controllers import habits_controller, test_controller
+from .api import category_routes, habit_routes
 
 
 def launch_backend_server():
@@ -8,7 +8,7 @@ def launch_backend_server():
     CORS(app, resources={r"/*": {"origins": "*"}})  # Use the specific origin if needed    
 
     # Register Controllers
-    app.register_blueprint(habits_controller.habits_bp)
-    app.register_blueprint(test_controller.test_bp)
+    app.register_blueprint(habit_routes.habits_bp)
+    app.register_blueprint(category_routes.category_bp)
 
     return app

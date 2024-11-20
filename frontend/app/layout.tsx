@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Roboto } from "next/font/google"; // Import the desired Google Font
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+// Load the Google Font
+const roboto = Roboto({
+  subsets: ["latin"], // Specify subsets you want (e.g., "latin", "latin-ext")
+  weight: ["100", "300", "400", "700"], // Specify font weights you want to use
+  variable: "--font-roboto", // Optional: create a CSS variable for the font
 });
 
 export const metadata: Metadata = {
@@ -24,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html className={roboto.className} lang="en">
       <body>{children}</body>
     </html>
   );

@@ -26,7 +26,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 const SignInButton = () => {
   return (
     <>
-      <button className="custom-button flex w-full" onClick={signInWithGoogle}>
+      <button className="signup-button  flex w-full" onClick={signInWithGoogle}>
         <AiFillGoogleCircle className="w-[30px] h-[30px]" />{" "}
         <span className="font-bold">Sign in with Google</span>
       </button>
