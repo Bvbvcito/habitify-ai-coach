@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --names \"Next.js,Flask\" \"npm run next\" \"npm run flask\"",
+    "next": "next dev",
+    "flask": "python ../backend/run.py",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "concurrently": "^9.1.0",
     "firebase": "^11.0.1",
     "framer-motion": "^11.11.13",
     "next": "15.0.2",

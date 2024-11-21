@@ -1,10 +1,11 @@
 #Import Db Instance from firebase_config
-from .firebase_config.firebase_config import db
+from ..firebase_config.firebase_config import db
 from flask import request, jsonify, Blueprint
 from pprint import pprint
+from ..models.Habits import Habit
 
 #Import Categories as Dictionary
-from ..staticdata.categories import habit_categories
+from ...staticdata.categories import habit_categories
 
 
 #Initialize db and collection
@@ -61,27 +62,15 @@ def add_new_habit():
         # Reference to user's habits subcollection
         habit_ref = db.collection("users").document(user_id).collection("habits")
 
-        # New habit structure with defaults
-        new_habit = {
-            "name": data.get("habit_name"),
-            "icon": data.get("icon", "💧"),
-            "color": data.get("color"),
-
-            "category": data.get("category"),
-            "user_context": data.get("context"),
-            "schedule": {
-                "type": "daily",
-                "days": data.get("schedule_days", []),
-                "excludeWeekends": data.get("exclude_weekends", True)
-            }
-        }
+        #TODO: Add scheduly_type, days and exclude weekends from next.js Frontend
+        new_habit = Habit(data.get("habit_name"), data.get("category"), data.get("color"),data.get("icon"), "Daily", ["monday", "tuesday"], False, data.get("context")).to_dict()
 
         # Add habit to Firestore and retrieve creation info
         creation_time, result = habit_ref.add(new_habit)
         print(f"Successfuly added habit {new_habit['name']} with id: {result.id}")
 
         return jsonify({
-            "message": "Habit successfully added!",
+            "message": f"Successfuly added habit {new_habit['name']} with id: {result.id}",
             "habit_id": result.id,
             "creation_time": creation_time
         }), 201
@@ -94,9 +83,8 @@ def add_new_habit():
         }), 500
 
 
-#Add a new habit
+#Delete a habit
 @habits_bp.route('/delete', methods=['POST'])
-
 def delete_habit():
     try:
         # Parse request
@@ -106,7 +94,8 @@ def delete_habit():
 
         if not user_id or not habit_id:
             return jsonify({"error": "User ID and habit ID are required"}), 400
-
+        
+        #Debug print data
         print("Received JSON data:", data)
 
         # Reference to user's habits subcollection
@@ -116,7 +105,7 @@ def delete_habit():
         if habit_ref.delete():
             print("Succesfuly deleted habit")
             return jsonify({
-                "message": "Habit successfully deleted!",
+                "message": f"Habit with id {habit_id} successfully deleted!",
 
             }), 200
 

@@ -88,6 +88,7 @@ const CreateHabit = () => {
       const result = await response.json();
 
       if (response.ok) {
+        console.log(result.message);
         router.push("/dashboard");
       } else {
         console.error("Error creating habit:", result);

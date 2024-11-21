@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .api import category_routes, habit_routes
+from .api.routes import category_routes, habit_routes
 
 
 def launch_backend_server():

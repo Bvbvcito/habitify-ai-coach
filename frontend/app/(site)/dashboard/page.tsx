@@ -5,10 +5,13 @@ import { User } from "firebase/auth";
 import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 import ListHabits from "@/components/habits/ListHabits";
 import HabitsModal from "@/components/habits/HabitsModal";
+import ChatBot from "@/components/chatbot/ChatBot";
 
 const DashBoard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [habitsModal, setHabitsModal] = useState(false);
+  const [habitId, setHabitId] = useState("");
+
   /**
    * Function to retrieve user information from the ProtectedRoute middleware
    */
@@ -55,7 +58,7 @@ const DashBoard = () => {
             {/* Habits Section */}
             <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-3 row-span-2">
               <h3 className="mb-4">Active Habits</h3>
-              <ListHabits user_id={user.uid} />
+              <ListHabits user_id={user.uid} setHabitId={setHabitId} />
             </div>
 
             {/* Daily Completion */}
@@ -72,7 +75,7 @@ const DashBoard = () => {
             <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-4  ">
               <h3 className="mb-4">Habits Assistant</h3>
               <div className="h-full min-h-[300px] flex items-center justify-center">
-                Chatbot
+                <ChatBot habit_id={habitId} user_id={user.uid} />
               </div>
             </div>
           </div>
