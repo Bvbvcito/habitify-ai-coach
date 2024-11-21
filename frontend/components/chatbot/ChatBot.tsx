@@ -22,7 +22,7 @@ const ChatBot = ({
       {/* Display Chatbot if habit is selected */}
 
       {habit_id !== "" && (
-        <div className="h-full w-full rounded-xl text-sm bg-black/40 p-4 text-gray-300 text-justify">
+        <div className="h-full w-full rounded-xl text-sm bg-black/40 p-4 text-gray-100 text-justify">
           {habit_id}
           <br />
           {user_id}

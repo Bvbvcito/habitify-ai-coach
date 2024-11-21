@@ -2,7 +2,7 @@
 from ..firebase_config.firebase_config import db
 from flask import request, jsonify, Blueprint
 from pprint import pprint
-from ..models.Habits import Habit
+from ..models.habit import Habit
 
 #Import Categories as Dictionary
 from ...staticdata.categories import habit_categories
