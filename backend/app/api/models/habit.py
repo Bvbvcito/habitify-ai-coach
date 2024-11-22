@@ -49,6 +49,6 @@ class Habit:
                 f"exclude_weekends={self.exclude_weekends}, user_context={self.user_context})")
 
 if __name__ == '__main__':
-    test = Habit("Une nouvelle tâche", "Catérogie super", "#ff7800", "Icone super", "daily", "monday, friday", False, "This is a super task").to_dict()
+    test = Habit("Une nouvelle tâche", "Catérogie super", "#ff7800", "Icone super", "daily", "monday, friday", False, "This is a super task")
 
-    print (test)
+    print (test.to_dict())

@@ -1,0 +1,4 @@
+# Byte-compiled files
+*.py[cod]
+__pycache__/
+*.so
