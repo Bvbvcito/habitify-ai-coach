@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .api.routes import category_routes, habit_routes
+from .api.routes import category_routes, habit_routes, assistant_routes
 
 
 def launch_backend_server():
@@ -10,5 +10,6 @@ def launch_backend_server():
     # Register Controllers
     app.register_blueprint(habit_routes.habits_bp)
     app.register_blueprint(category_routes.category_bp)
+    app.register_blueprint(assistant_routes.assistant_bp)
 
     return app

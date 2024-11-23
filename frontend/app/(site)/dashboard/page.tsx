@@ -62,12 +62,13 @@ const DashBoard = () => {
             </div>
 
             {/* Daily Completion */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2  aspect-square">
+            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px]">
               <h3 className="mb-4">Daily Completion</h3>
+              <div className="w-44 h-44 bg-white">cOUCOU</div>
             </div>
 
             {/* Streaks */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 aspect-square ">
+            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px] ">
               <h3 className="mb-4">Streaks</h3>
             </div>
 

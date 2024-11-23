@@ -21,7 +21,7 @@ class Habit:
         self.days = days
         self.exclude_weekends = exclude_weekends
         self.user_context = user_context
-        self.createdAt = createdAt or datetime.utcnow() 
+        self.createdAt = createdAt or datetime.now() 
 
 
 
@@ -40,13 +40,13 @@ class Habit:
                 "excludeWeekends": self.exclude_weekends
             },
             "user_context": self.user_context,
-            "createdAt" : self.createdAt or datetime.utcnow()
+            "createdAt" : self.createdAt or datetime.now()
         }
 
     def __repr__(self):
         return (f"Habit(name={self.name}, category={self.category}, color={self.color}, "
                 f"icon={self.icon}, schedule_type={self.schedule_type}, days={self.days}, "
-                f"exclude_weekends={self.exclude_weekends}, user_context={self.user_context})")
+                f"exclude_weekends={self.exclude_weekends}, user_context={self.user_context}, createdAt={self.createdAt})")
 
 if __name__ == '__main__':
     test = Habit("Une nouvelle tâche", "Catérogie super", "#ff7800", "Icone super", "daily", "monday, friday", False, "This is a super task")

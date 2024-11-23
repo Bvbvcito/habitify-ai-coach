@@ -14,7 +14,7 @@ habits_collection = db.collection("habits")
 # Initialiaze a Blueprint for habits
 habits_bp = Blueprint('habits', __name__, url_prefix='/api/habits')
 
-#Create a new habit
+#Get all habits
 @habits_bp.route('/get/<user_id>', methods=['GET'])
 def get_habits_data(user_id):
     try:

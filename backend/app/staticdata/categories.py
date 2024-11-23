@@ -39,4 +39,4 @@ habit_categories = {
 
 if __name__ == "__main__":
 
-    print(habit_categories["Nutrition & Diet"]["color"])
+    print(habit_categories["Nutrition & Diet"]["description"])

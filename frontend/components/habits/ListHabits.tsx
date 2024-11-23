@@ -23,21 +23,33 @@ const ListHabits = ({
   const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
   const [refreshHabits, setRefreshHabits] = useState(false);
 
-  const deleteHabit = async (user_id: string, habit_id: string) => {
-    const response = await fetch(`${apiUrl}/api/habits/delete`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_id, habit_id }),
-    });
+  const deleteHabit = async (
+    event: React.MouseEvent<HTMLButtonElement>, // Accept event
+    user_id: string,
+    habit_id: string
+  ) => {
+    event.stopPropagation(); // Prevent the event from reaching the parent
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || "Failed to delete habit");
+    try {
+      const response = await fetch(`${apiUrl}/api/habits/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id, habit_id }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to delete habit");
+      }
+
+      console.log(data.message);
+
+      // Update state
+      setHabitId("");
+      setRefreshHabits((prev) => !prev);
+    } catch (error) {
+      console.error("Error deleting habit:", error.message);
     }
-
-    console.log(data.message);
-    setHabitId("");
-    setRefreshHabits((prev) => !prev);
   };
 
   useEffect(() => {
@@ -117,7 +129,7 @@ const ListHabits = ({
               </div>
               <div className="flex flex-row gap-1 ml-3 justify-end items-end">
                 <IoMdSettings
-                  onClick={() => deleteHabit(user_id, habit.id)}
+                  onClick={(event) => deleteHabit(event, user_id, habit.id)}
                   className="text-white/20 w-8 h-8 group-hover:text-white/80 hover:bg-white/30 p-1 rounded-full transition-all duration-100"
                 />
               </div>

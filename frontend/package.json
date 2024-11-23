@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently --names \"Next.js,Flask\" \"npm run next\" \"npm run flask\"",
+    "both": "concurrently --names \"Next.js,Flask\" \"npm run next\" \"npm run flask\"",
+    "dev": "next dev",
     "next": "next dev",
     "flask": "python ../backend/run.py",
     "build": "next build",
