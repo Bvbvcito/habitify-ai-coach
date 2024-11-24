@@ -43,7 +43,6 @@ const NavBar = () => {
             </li>
           </Link>
         )}
-
         {/* Check if current URL is actual page */}
         {current_url == "/habits" ? (
           <li
@@ -60,7 +59,22 @@ const NavBar = () => {
             </li>
           </Link>
         )}
-        <li className="px-4 py-2">About Us</li>
+        {/* Check if current URL is actual page */}
+        {current_url == "/about" ? (
+          <li
+            className={`bg-white rounded-full ${textColorClass[themecolor]} font-bold px-4 py-2`}
+          >
+            About Us
+          </li>
+        ) : (
+          <Link href="/about" prefetch={false}>
+            <li
+              className={`hover:bg-white  hover:${textColorClass[themecolor]} rounded-full text-white  px-4 py-2 transition-all duration-200`}
+            >
+              About Us
+            </li>
+          </Link>
+        )}{" "}
         <li className="px-4 py-2">Contact</li>
       </ul>
       <NavBarAvatar user={user} setMenuColor={setThemeColor} />

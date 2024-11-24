@@ -7,10 +7,17 @@ import ListHabits from "@/components/habits/ListHabits";
 import HabitsModal from "@/components/habits/HabitsModal";
 import ChatBot from "@/components/chatbot/ChatBot";
 
+// Global Context Variables
+import { useGlobalContext } from "@/contexts/GlobalContext";
+
+// NextUI imports
+import { CircularProgress } from "@nextui-org/react";
+
 const DashBoard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [habitsModal, setHabitsModal] = useState(false);
   const [habitId, setHabitId] = useState("");
+  const { globalTheme } = useGlobalContext();
 
   /**
    * Function to retrieve user information from the ProtectedRoute middleware
@@ -62,9 +69,22 @@ const DashBoard = () => {
             </div>
 
             {/* Daily Completion */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px]">
+            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all flex flex-col rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px]">
               <h3 className="mb-4">Daily Completion</h3>
-              <div className="w-44 h-44 bg-white">cOUCOU</div>
+              <div className="w-full h-full flex flex-col  items-center justify-center">
+                <CircularProgress
+                  classNames={{
+                    svg: "w-52 h-52 drop-shadow-md",
+                    indicator: `stroke-${globalTheme}-500`,
+                    track: "stroke-white/10",
+                    value: "text-3xl font-semibold text-white",
+                  }}
+                  value={75}
+                  strokeWidth={4}
+                  showValueLabel={true}
+                />
+                <small className="mt-5">1 completed | 4 pending</small>
+              </div>
             </div>
 
             {/* Streaks */}

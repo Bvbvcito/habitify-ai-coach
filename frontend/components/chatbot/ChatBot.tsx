@@ -65,7 +65,7 @@ const ChatBot = ({
       {/* Display Chatbot if habit is selected */}
 
       {habit_id !== "" && (
-        <div className="h-full w-full rounded-xl text-normal bg-black/40 p-6 text-red text-justify flex ">
+        <div className="h-full w-full rounded-xl text-sm bg-black/60 p-6  text-justify flex ">
           {loading === true ? (
             <div className="flex flex-col items-center self-center  mx-auto text-center">
               <div>

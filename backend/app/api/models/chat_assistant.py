@@ -1,13 +1,13 @@
 import ollama
 
 class OllamaInterface:
-    def __init__(self, model_name='llama2'):
+    def __init__(self, model_name='llama3'):
         self.model_name = model_name
 
     def chat(self, user_message, system_message):
         messages = [
-            {'role': 'user', 'content': user_message},
-            {'role': 'system', 'content': system_message}
+            {'role': 'system', 'content': system_message},
+            {'role': 'user', 'content': user_message}
         ]
         response = ollama.chat(model=self.model_name, messages=messages)
         return response['message']['content']

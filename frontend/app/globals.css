@@ -25,6 +25,30 @@ h3 {
   color: white;
 }
 
+h4 {
+  @apply font-bold;
+  color: white;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.chat-item {
+  @apply bg-slate-800 p-4 my-2 rounded-md;
+  list-style-type: none;
+}
+
+.chat-title {
+  @apply p-2 rounded-full bg-slate-700 text-center my-4  text-white;
+}
+
+.chat-p {
+  @apply my-6;
+}
+
 .custom-button {
   @apply bg-white/10 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/30 items-center;
 }

@@ -8,6 +8,8 @@ import { BiSolidExit } from "react-icons/bi";
 import { IoIosSettings } from "react-icons/io";
 import { RiDashboard3Fill } from "react-icons/ri";
 
+import { useGlobalContext } from "@/contexts/GlobalContext";
+
 type ThemeColor = "emerald" | "amber" | "purple" | "slate";
 
 interface NavBarAvatarProps {
@@ -26,6 +28,7 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
   const [menu, setMenu] = useState<boolean>(false);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
+  const { globalTheme, setGlobalTheme } = useGlobalContext();
 
   const [bgColor, setBgColor] = useState("#6b21a8"); // Initial background color
   const [submenucolor, setSubMenuColor] = useState("purple"); // Initial background color
@@ -123,6 +126,7 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
                     changeColor(color.hex);
                     setMenuColor(color.name as ThemeColor);
                     setSubMenuColor(color.name);
+                    setGlobalTheme(color.name);
                   }}
                   className={`${color.value} ${
                     color.hex == bgColor ? "border-white/50 border-2" : ""

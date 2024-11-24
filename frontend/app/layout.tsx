@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google"; // Import the desired Google Font
 import "./globals.css";
+import { NextUIProvider } from "@nextui-org/react";
+import { GlobalProvider } from "@/contexts/GlobalContext";
 
 // Load the Google Font
 const roboto = Roboto({
@@ -21,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className={roboto.className} lang="en">
-      <body>{children}</body>
+      <body>
+        <GlobalProvider>
+          <NextUIProvider>{children}</NextUIProvider>
+        </GlobalProvider>
+      </body>
     </html>
   );
 }

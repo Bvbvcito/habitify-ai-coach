@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+// Global Context Variables
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 export default function ChatTypingEffect({ chatResponse }) {
   const [displayedText, setDisplayedText] = useState("");
   const typingSpeed = 30; // Adjust typing speed (milliseconds per word)
+  const { globalTheme } = useGlobalContext();
 
   // Preprocess chatResponse to handle line returns and bullet points
   const formatChatResponse = (response) => {
@@ -15,7 +18,7 @@ export default function ChatTypingEffect({ chatResponse }) {
         return "<br />";
       } else {
         // Handle regular text
-        return `<p>${line.trim()}</p>`;
+        return `<p className="mb-2">${line.trim()}</p>`;
       }
     });
   };

@@ -48,7 +48,7 @@ const ListHabits = ({
       setHabitId("");
       setRefreshHabits((prev) => !prev);
     } catch (error) {
-      console.error("Error deleting habit:", error.message);
+      console.error("Error deleting habit:", (error as Error).message);
     }
   };
 
@@ -110,7 +110,7 @@ const ListHabits = ({
               }}
               key={habit.id}
               layout
-              className="rounded-xl flex w-full bg-black/50 border border-white/15 p-3 hover:bg-black/70 hover:shadow-md hover:cursor-pointer group"
+              className="rounded-xl flex w-full bg-black/50 border border-white/15 p-3  hover:bg-black/70 hover:shadow-md hover:cursor-pointer group"
             >
               <div
                 style={{ backgroundColor: habit.color }}
@@ -123,9 +123,9 @@ const ListHabits = ({
               </div>
 
               <div className="flex flex-grow flex-col">
-                <span className="font-bold text-gray-100">{habit.name}</span>
-                <small className="text-white/50 mb-2">{habit.category}</small>
-                <small className="text-gray-200">{habit.user_context}</small>
+                <span className="font-bold text-gray-200">{habit.name}</span>
+                <small className={`mb-2 text-gray-200`}>{habit.category}</small>
+                <small className="text-gray-300">{habit.user_context}</small>
               </div>
               <div className="flex flex-row gap-1 ml-3 justify-end items-end">
                 <IoMdSettings
