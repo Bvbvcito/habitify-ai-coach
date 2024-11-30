@@ -1,6 +1,7 @@
 import { LuBrainCircuit } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import ChatTypingEffect from "../ui/ChatTyping";
+import { Spinner } from "@nextui-org/react";
 const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
 const ChatBot = ({
   habit_id,
@@ -18,7 +19,7 @@ const ChatBot = ({
       setLoading(true); // Set loading state to true
       setChatResponse(""); // Clear previous response
       // Set API URL and endpoint
-      const response = await fetch(`${apiUrl}/api/assistant/query`, {
+      const response = await fetch(`${apiUrl}/api/chatbot/get`, {
         method: "POST", // Specify the HTTP method
         headers: {
           "Content-Type": "application/json", // Set the content type to JSON
@@ -32,9 +33,9 @@ const ChatBot = ({
       }
 
       // Parse the response (if needed)
-      const data = await response.json();
-      console.log("Assistant response:", data);
-      setChatResponse(data);
+      const result = await response.json();
+
+      setChatResponse(result.data);
     } catch (error) {
       console.error("Error posting message:", error);
     } finally {
@@ -65,11 +66,11 @@ const ChatBot = ({
       {/* Display Chatbot if habit is selected */}
 
       {habit_id !== "" && (
-        <div className="h-full w-full rounded-xl text-sm bg-black/60 p-6  text-justify flex ">
+        <div className="h-full w-full rounded-xl text-sm bg-black/50 p-6  text-justify flex ">
           {loading === true ? (
             <div className="flex flex-col items-center self-center  mx-auto text-center">
-              <div>
-                <LuBrainCircuit className="h-12 w-12 text-slate-300 mb-4 animate-pulse" />
+              <div className="mb-3">
+                <Spinner size="lg" color="default" />
               </div>
               <div className="font-normal">Advisor is thinking</div>
               <small>Please Wait...</small>

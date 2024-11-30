@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from ...staticdata.categories import habit_categories
+from ..staticdata.categories import habit_categories
 # Create a Blueprint for habits
 category_bp = Blueprint('categories', __name__, url_prefix='/api/categories')
 

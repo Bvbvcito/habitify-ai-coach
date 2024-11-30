@@ -23,13 +23,13 @@ export default function RootLayout({
         backgroundAttachment: "fixed", // Optional for a fixed background effect
         backgroundBlendMode: "overlay", // Adds mix-blend-overlay effect
 
-        backgroundColor: "#6b21a8", // Adds a background color for blending
+        backgroundColor: "#333", // Adds a background color for blending
       }}
     >
       <div className=" h-full max-w-6xl mx-auto flex w-full items-center transition-colors">
         <div className="w-full mx-auto">
           <AnimatedNavBar />
-          <div className="mx-7 mt-7">{children}</div>
+          <div className="mx-7 mt-3">{children}</div>
         </div>
       </div>
     </div>

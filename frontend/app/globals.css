@@ -20,6 +20,11 @@ h1 {
   color: white;
 }
 
+h2 {
+  font-size: 25px;
+  color: white;
+}
+
 h3 {
   font-size: 18px;
   color: white;
@@ -36,17 +41,51 @@ pre {
   overflow-wrap: break-word;
 }
 
-.chat-item {
-  @apply bg-slate-800 p-4 my-2 rounded-md;
-  list-style-type: none;
+.chat-response {
+  @apply text-slate-300;
 }
 
-.chat-title {
-  @apply p-2 rounded-full bg-slate-700 text-center my-4  text-white;
+.chat-response h1,
+.chat-response h2,
+.chat-response h3,
+.chat-response h4,
+.chat-response h5,
+.chat-response h6 {
+  @apply text-slate-300 font-bold text-left;
 }
 
-.chat-p {
-  @apply my-6;
+.chat-response h1 {
+  @apply text-xl font-normal text-slate-100;
+}
+
+.chat-response a {
+  @apply text-slate-200 font-bold underline;
+}
+
+.chat-response b {
+  @apply font-black;
+}
+
+.chat-response p {
+  @apply mb-2;
+}
+
+.chat-reponse ul {
+  @apply p-12 rounded-full bg-slate-700 text-center py-4  text-white;
+}
+
+.chat-response li {
+  @apply p-3 rounded-md bg-slate-700  py-4 text-justify  text-white;
+}
+
+pre {
+  @apply bg-slate-800 p-3 rounded-md;
+  line-height: 0.8; /* Compact but enough to avoid overlap */
+  margin: 0; /* Remove unnecessary vertical margins */
+  font-size: 12px; /* Ensure the font size is appropriate */
+  white-space: pre-wrap; /* Allow wrapping without overlap */
+  word-break: break-word; /* Prevent long strings from breaking layout */
+  @apply text-left;
 }
 
 .custom-button {

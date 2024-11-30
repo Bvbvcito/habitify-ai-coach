@@ -57,46 +57,58 @@ const DashBoard = () => {
           )}
           {/* Habits Modal */}
 
-          <h1 className="text-white/75">
+          <h1 className="text-white/75 mb-3">
             Welcome back, <span className="">{user.displayName}</span>
           </h1>
 
-          <div className="grid sm:grid-cols-7 grid-rows-[1fr auto] gap-3 mt-5 mb-12 w-full h-full">
-            {/* Habits Section */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-3 row-span-2">
-              <h3 className="mb-4">Active Habits</h3>
-              <ListHabits user_id={user.uid} setHabitId={setHabitId} />
-            </div>
-
-            {/* Daily Completion */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all flex flex-col rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px]">
-              <h3 className="mb-4">Daily Completion</h3>
-              <div className="w-full h-full flex flex-col  items-center justify-center">
-                <CircularProgress
-                  classNames={{
-                    svg: "w-52 h-52 drop-shadow-md",
-                    indicator: `stroke-${globalTheme}-500`,
-                    track: "stroke-white/10",
-                    value: "text-3xl font-semibold text-white",
-                  }}
-                  value={75}
-                  strokeWidth={4}
-                  showValueLabel={true}
-                />
-                <small className="mt-5">1 completed | 4 pending</small>
+          <div className="w-full flex flex-col gap-3 sm:flex-row mb-8">
+            {/* Habits List */}
+            <div className="sm:w-2/5 min-h-full  w-full">
+              <div className="bg-white/10 border text-white w-full h-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-3 row-span-2">
+                <h3 className="mb-4">Active Habits</h3>
+                <ListHabits user_id={user.uid} setHabitId={setHabitId} />
               </div>
             </div>
+            {/* Habits List */}
 
-            {/* Streaks */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px] ">
-              <h3 className="mb-4">Streaks</h3>
-            </div>
+            <div className=" flex flex-col gap-3 sm:w-3/5 w-full ">
+              {/* Daily Completion */}
+              <div className=" sm:flex flex-row gap-3  w-full">
+                <div className="w-full sm:mb-0 mb-3">
+                  <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all flex flex-col rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px]">
+                    <h3 className="mb-4">Daily Completion</h3>
+                    <div className="w-full h-full flex flex-col  items-center justify-center">
+                      <CircularProgress
+                        classNames={{
+                          svg: "w-52 h-52 drop-shadow-md",
+                          indicator: `stroke-${globalTheme}-500`,
+                          track: "stroke-white/10",
+                          value: "text-3xl font-semibold text-white",
+                        }}
+                        value={75}
+                        strokeWidth={4}
+                        showValueLabel={true}
+                        aria-label="Completion Circle"
+                      />
+                      <small className="mt-5">1 completed | 4 pending</small>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex h-full w-full">
+                  <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px] ">
+                    <h3 className="mb-4">Streaks</h3>
+                  </div>
+                </div>
+              </div>
+              {/* Daily Completion */}
 
-            {/* Habits Assistant */}
-            <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-4  ">
-              <h3 className="mb-4">Habits Assistant</h3>
-              <div className="h-full min-h-[300px] flex items-center justify-center">
-                <ChatBot habit_id={habitId} user_id={user.uid} />
+              <div className="flex h-full">
+                <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-4  ">
+                  <h3 className="mb-4">Habits Assistant</h3>
+                  <div className="h-full  flex items-center justify-center">
+                    <ChatBot habit_id={habitId} user_id={user.uid} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

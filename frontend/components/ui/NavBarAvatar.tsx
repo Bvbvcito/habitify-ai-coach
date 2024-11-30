@@ -30,20 +30,21 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const { globalTheme, setGlobalTheme } = useGlobalContext();
 
-  const [bgColor, setBgColor] = useState("#6b21a8"); // Initial background color
-  const [submenucolor, setSubMenuColor] = useState("purple"); // Initial background color
+  const [bgColor, setBgColor] = useState("emerald"); // Initial background color
+  const [submenucolor, setSubMenuColor] = useState(globalTheme); // Initial background color
 
-  // useEffect to change the main background color whenever bgColor changes, add function to store localdata
   useEffect(() => {
+    setSubMenuColor(globalTheme);
+
     const colorBox = document.getElementById("bg_color_container");
     if (colorBox) {
-      colorBox.style.backgroundColor = bgColor;
-    }
-  }, [bgColor]); // Dependency array includes bgColor
+      // Find the color object
+      const bg_update = colors.find((color) => color.name === globalTheme);
 
-  const changeColor = (color: string) => {
-    setBgColor(color); // Update the bgColor state
-  };
+      // Safely access the hex value or use a fallback
+      colorBox.style.backgroundColor = bg_update?.hex || "#333333"; // Fallback to white if undefined
+    }
+  }, [globalTheme]); // Dependency array includes globalTheme
 
   const toggleMenu = () => {
     setMenu(!menu);
@@ -123,13 +124,13 @@ const NavBarAvatar = ({ user, setMenuColor }: NavBarAvatarProps) => {
               {colors.map((color, index) => (
                 <button
                   onClick={() => {
-                    changeColor(color.hex);
+                    setBgColor(globalTheme);
                     setMenuColor(color.name as ThemeColor);
                     setSubMenuColor(color.name);
                     setGlobalTheme(color.name);
                   }}
                   className={`${color.value} ${
-                    color.hex == bgColor ? "border-white/50 border-2" : ""
+                    color.name == globalTheme ? "border-white/50 border-2" : ""
                   } w-6 h-6 rounded-full hover:border-white/30 hover:border-2 `}
                   key={index}
                 ></button>

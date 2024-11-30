@@ -1,18 +1,49 @@
 // contexts/GlobalContext.js
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 interface GlobalProviderProps {
   children: ReactNode; // Type the children prop
 }
 
-const GlobalContext = createContext({
-  globalTheme: "", // Default value for globalVar
-  setGlobalTheme: () => {}, // Default is a no-op function
+interface GlobalContextType {
+  globalTheme: string;
+  setGlobalTheme: Dispatch<SetStateAction<string>>; // Correctly type setGlobalTheme
+}
+
+const GlobalContext = createContext<GlobalContextType>({
+  globalTheme: "",
+  setGlobalTheme: () => {}, // Temporary no-op function as a default
 });
 
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [globalTheme, setGlobalTheme] = useState("purple");
+
+  // Load the theme from local storage on component mount
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("globalTheme");
+    if (storedTheme) {
+      console.log("Restored theme from local storage:", storedTheme);
+      setGlobalTheme(storedTheme);
+    } else {
+      console.log("No stored theme found. Setting default theme to 'purple'.");
+      localStorage.setItem("globalTheme", "purple"); // Store the default theme
+    }
+  }, []);
+
+  // Update local storage whenever the theme changes
+  useEffect(() => {
+    localStorage.setItem("globalTheme", globalTheme);
+    console.log("Changing Theme: ", globalTheme);
+  }, [globalTheme]);
 
   return (
     <GlobalContext.Provider value={{ globalTheme, setGlobalTheme }}>

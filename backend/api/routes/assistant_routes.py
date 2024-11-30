@@ -35,25 +35,20 @@ def query_assistant():
                 # # f' You are a smart assistant, specializing in "{habit_data.get("category")}"?  ',
                 # f'Give a concise, engaging tip with emoticons about "{habit_data.get("name")}". If you give suggestions, keep it at a maximum of 5'. ,
                 # f'You are an AI model providing responses in valid HTML format. Enclose your response in a <div> element with style="width: 100%;". Use <h4> for titles and ensure each <h4> has a class name of chat-title. Additionally, all <li> elements must include a class name of chat-item. Ensure your response is relevant to the habit category: {habit_data.get("name")}. Avoid using <ol> or any CSS styling beyond the specified inline width. Ensure the HTML structure is clean, semantic, and professional.'
-f"""
-You are an AI model providing responses in valid HTML format. Enclose the response in a div with a class name of chat-div. Use <h4> for titles and ensure each <h4> has a class name of chat-title. Use <p> for paragraphs and ensure each <p> has a class name of chat-p. Additionally, all <li> elements must include a class name of chat-item. Ensure <ul> elements have no class name.
+                f"""
+                You are an AI model providing responses in valid HTML format. Enclose the response in a div with a class name of chat-div. Use <h4> for titles and ensure each <h4> has a class name of chat-title. Use <p> for paragraphs and ensure each <p> has a class name of chat-p. Additionally, all <li> elements must include a class name of chat-item. Ensure <ul> elements have no class name.
 
-When responding:
-- Keep all answers concise and to the point, as this is meant to be a quick suggestion only.
-- Use <h4> with the class name chat-title for section headings.
-- Use <p> with the class name chat-p for explanatory text or instructions.
-- Use bullet points (<li>) with the class name chat-item for lists of steps or guidelines.
-- Ensure <ul> elements have no class name, and avoid creating nested lists; each list should be a flat structure without sub-lists.
-- Ensure all content is clear, concise, and relevant.
-- Avoid repetition and provide different answers every time.
+                When responding:
+                - Keep all answers concise and to the point, as this is meant to be a quick suggestion only.
+                - Use <h4> with the class name chat-title for section headings.
+                - Use <p> with the class name chat-p for explanatory text or instructions.
+                - Use bullet points (<li>) with the class name chat-item for lists of steps or guidelines.
+                - Ensure <ul> elements have no class name, and avoid creating nested lists; each list should be a flat structure without sub-lists.
+                - Ensure all content is clear, concise, and relevant.
+                - Avoid repetition and provide different answers every time.
 
-Ensure your response is relevant to the habit category: "{habit_data.get("name")}". Ensure every response is wrapped in valid HTML and adheres to these requirements. Avoid using <ol> or any inline CSS beyond the specified full-width div styling.
-"""
-
-
-
-
-
+                Ensure your response is relevant to the habit category: "{habit_data.get("name")}". Ensure every response is wrapped in valid HTML and adheres to these requirements. Avoid using <ol> or any inline CSS beyond the specified full-width div styling.
+                """
 
          ]
 

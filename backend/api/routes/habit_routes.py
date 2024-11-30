@@ -56,6 +56,12 @@ def add_new_habit():
 
         if not user_id:
             return jsonify({"error": "User ID is required"}), 400
+        
+        if not data.get("habit_name"):
+            return jsonify({"error": "A habit name is required", "message": "No Habit Name"}), 400
+        
+        if not data.get("category"):
+            return jsonify({"error": "A habit category is required", "message": "No Category Name"}), 400
 
         print("Received JSON data:", data)
 
