@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 import ListHabits from "@/components/habits/ListHabits";
 import HabitsModal from "@/components/habits/HabitsModal";
 import ChatBot from "@/components/chatbot/ChatBot";
+import getFormattedDate from "@/utils/helpers";
 
 // Global Context Variables
 import { useGlobalContext } from "@/contexts/GlobalContext";
@@ -17,7 +18,12 @@ const DashBoard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [habitsModal, setHabitsModal] = useState(false);
   const [habitId, setHabitId] = useState("");
+
+  // Global theme color setter and getter
   const { globalTheme } = useGlobalContext();
+  
+  // Date selection managemenent
+  const [date, SetDate] = useState(getFormattedDate(new Date()))
 
   /**
    * Function to retrieve user information from the ProtectedRoute middleware
@@ -65,7 +71,7 @@ const DashBoard = () => {
             {/* Habits List */}
             <div className="sm:w-2/5 min-h-full  w-full">
               <div className="bg-white/10 border text-white w-full h-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-3 row-span-2">
-                <h3 className="mb-4">Active Habits</h3>
+                <h3 className="mb-4">Active Habits for {date}</h3>
                 <ListHabits user_id={user.uid} setHabitId={setHabitId} />
               </div>
             </div>

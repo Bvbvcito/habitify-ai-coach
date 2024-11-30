@@ -21,6 +21,7 @@ import {
 // Icons
 import { MdOutlineAddCircle } from "react-icons/md";
 import { MdErrorOutline } from "react-icons/md";
+import { IoIosAlarm } from "react-icons/io";
 import HabitRecap from "@/components/habits/HabitRecap";
 
 const CreateHabit = () => {
@@ -34,7 +35,7 @@ const CreateHabit = () => {
   const [formerror, setFormError] = useState(false);
 
   // Set NextUi forms size
-  const nextui_size = "lg";
+  const nextui_size = "md";
 
   //Set Form Data and add UID
   const [formData, setFormData] = useState({
@@ -184,7 +185,10 @@ const CreateHabit = () => {
                   onChange={handleFormChanges}
                 />
               </div>
-              <div>wesh</div>
+              <div className="flex flex-row items-center gap-2">
+                <IoIosAlarm className="text-white" />
+                <h3>Habit Scheduling</h3>
+                </div>
               <div className="col-span-2 mt-10  flex justify-center items-center">
                 <button className="custom-button flex">
                   <MdOutlineAddCircle className="w-[30px] h-[30px]" />{" "}

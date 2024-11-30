@@ -54,3 +54,6 @@ __pycache__/
 # Virtual environment (if any)
 venv/
 env/
+
+# Ignore Firestore config
+backend/config/*.json
