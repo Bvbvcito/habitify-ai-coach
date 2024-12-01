@@ -97,5 +97,5 @@ pre {
 }
 
 .signup-button {
-  @apply bg-purple-800 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/30 items-center;
+  @apply bg-purple-800 backdrop-blur-md border border-white/15 text-white rounded-2xl px-6 py-3 justify-center gap-2 shadow-md hover:bg-white/10 items-center;
 }

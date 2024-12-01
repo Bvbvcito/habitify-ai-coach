@@ -21,7 +21,7 @@ const NavBar = () => {
       <div className="">
         <img
           src="/img/habitify_logo2.png"
-          className="w-[140px]"
+          className="w-[120px]"
           alt="Habitness logo"
         />
       </div>
