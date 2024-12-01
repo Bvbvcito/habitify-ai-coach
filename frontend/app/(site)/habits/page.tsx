@@ -212,6 +212,7 @@ const CreateHabit = () => {
                 <Textarea
                   size={nextui_size}
                   minRows={5}
+                  spellCheck="false"
                   label="User Context"
                   placeholder="Give your task a user context: the more detailed, the more precise the AI Assistant will be."
                   name="user_context"

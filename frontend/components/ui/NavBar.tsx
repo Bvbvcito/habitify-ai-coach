@@ -18,7 +18,13 @@ const NavBar = () => {
     <nav
       className={`sm:mx-5 sm:rounded-[35px]  sm:mt-10 bg-${globalTheme}-600 px-5 shadow-sm justify-between flex py-2 items-center`}
     >
-      <div>Logo</div>
+      <div className="">
+        <img
+          src="/img/habitify_logo2.png"
+          className="w-[140px]"
+          alt="Habitness logo"
+        />
+      </div>
       <ul
         className={`bg-${globalTheme}-700 p-[2px] rounded-full gap-7 shadow-inner text-white items-center hidden sm:flex`}
       >

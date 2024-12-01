@@ -52,7 +52,9 @@ export default function HomePage() {
         </div>
         <div>
           <Link href="/signin">
-            <button>Sign in / Create Account</button>
+            <button className="text-slate-700 font-normal">
+              Click Here To Sign In
+            </button>
           </Link>
         </div>
       </div>
