@@ -23,6 +23,7 @@ interface FormData {
   schedule_type: string;
   user_id: string;
   description: string;
+  schedule_radio: string;
 }
 
 // Icon mapping for resolving string to React component
@@ -38,12 +39,11 @@ const iconMapping: Record<string, React.FC> = {
   FaUsers,
 };
 
-interface Compo1Props {
+interface RecapProps {
   formData: FormData;
 }
 
-const HabitRecap: React.FC<Compo1Props> = ({ formData }) => {
-  const color = "emerald";
+const HabitRecap: React.FC<RecapProps> = ({ formData }) => {
   const { globalTheme } = useGlobalContext();
 
   const IconComponent = iconMapping[formData.icon];
@@ -62,7 +62,7 @@ const HabitRecap: React.FC<Compo1Props> = ({ formData }) => {
             <div
               className={`absolute top-1/2 right-4 bg-${globalTheme}-600 rounded-full p-3 transform -translate-y-1/2`}
             >
-              <IconComponent size={25} />
+              <IconComponent size={30} />
             </div>
           )}
 
@@ -75,6 +75,12 @@ const HabitRecap: React.FC<Compo1Props> = ({ formData }) => {
         >
           <small className="text-white mb-2">Habit AI Context</small>
           <p className="text-sm">{formData.user_context}</p>
+        </div>
+        <div
+          className={`-4 text-gray-300 bg-black/40 flex flex-col p-3 rounded-xl`}
+        >
+          <small className="text-white mb-2">Habit Scheduling</small>
+          <p className="text-sm">Repeat: {formData.schedule_radio}</p>
         </div>
       </div>
     </>

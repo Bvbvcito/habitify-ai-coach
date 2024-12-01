@@ -6,12 +6,29 @@ from api.habits.habit import Habit
 
 class HabitService:
     """
-    Service module for handling Habits logic
+    Service layer for managing habit-related operations.
+
+    This class serves as the intermediary between the controllers (API endpoints)
+    and the repository (data access layer). It handles business logic and
+    data transformations.
     """
+
     def __init__(self):
         self.repository = HabitRepository()
 
-    def get_user_habits(self, user_id: str) -> Habit:
+    def get_user_habits(self, user_id: str) -> list[dict]:
+        """
+        Retrieves all habits for a given user.
+
+        This function interacts with the repository layer to fetch
+        user habits and transforms them into dictionary format.
+
+        Args:
+            user_id (str): The ID of the user.
+
+        Returns:
+            list[dict]: A list of dictionaries representing the user's habits.
+        """
         habits = self.repository.get_user_habits(user_id)
         
         # Convert Habits Objects to Dicts

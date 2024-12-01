@@ -6,7 +6,7 @@ from api.habits.habit import Habit
 
 class HabitRepository():
     """
-    Repository for managing Habits using firebase database
+    Repository layer for managing Habits using firebase database
     """
     def __init__(self):
         self.dbcollection = db.collection('users')

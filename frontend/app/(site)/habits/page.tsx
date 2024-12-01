@@ -4,9 +4,13 @@ import React, { useState, useEffect } from "react";
 import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import useAuth from "@/hooks/useAuth";
 
 // Static Categories
 import { habitCategories } from "@/data/habitCategories";
+
+// Global Theme Context
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 // Next UI
 import {
@@ -16,6 +20,11 @@ import {
   Input,
   Card,
   CardBody,
+  Radio,
+  RadioGroup,
+  Switch,
+  Checkbox,
+  CheckboxGroup,
 } from "@nextui-org/react";
 
 // Icons
@@ -25,6 +34,9 @@ import { IoIosAlarm } from "react-icons/io";
 import HabitRecap from "@/components/habits/HabitRecap";
 
 const CreateHabit = () => {
+  // Initialize JWT Token
+  const { token } = useAuth();
+
   //Initialize Router
   const router = useRouter();
   // Get user data
@@ -33,6 +45,12 @@ const CreateHabit = () => {
   const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
   // Check form errors
   const [formerror, setFormError] = useState(false);
+
+  // Day Selection Array
+  const [daySelect, setDaySelect] = useState([]);
+
+  // Global Theme Variable
+  const { globalTheme } = useGlobalContext();
 
   // Set NextUi forms size
   const nextui_size = "md";
@@ -44,11 +62,12 @@ const CreateHabit = () => {
     category: "",
     color: "",
     icon: "",
-    schedule_type: "Weekly",
-    user_id: user?.uid,
-    days: ["monday", "friday"],
-    exclude_weekends: true,
+    schedule_type: "",
+    user_id: user?.uid ?? "",
+    days: [],
+    exclude_weekends: false,
     description: "",
+    schedule_radio: "Daily",
   });
 
   //Pass UID to form Data
@@ -65,10 +84,16 @@ const CreateHabit = () => {
   const handleFormChanges = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
+    const { name, type, value } = target;
 
-    // Find the category data based on the updated category value
-    const updatedCategory = name === "category" ? value : formData.category;
+    // Check if the input is a checkbox or switch
+    const updatedValue =
+      type === "checkbox" ? (target as HTMLInputElement).checked : value;
+
+    // Handle category-specific updates
+    const updatedCategory =
+      name === "category" ? updatedValue : formData.category;
     const categoryData = habitCategories.find(
       (category) => category.name === updatedCategory
     ) || { color: "#000000", icon: "super icone", description: "" };
@@ -76,7 +101,7 @@ const CreateHabit = () => {
     // Update the formData state
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: updatedValue, // Handle true/false for switches
       color: categoryData.color,
       icon: categoryData.icon,
       description: categoryData.description,
@@ -93,6 +118,14 @@ const CreateHabit = () => {
     } else {
       setFormError(false);
     }
+    // Set schedule_type
+    formData.schedule_type = formData.schedule_radio;
+    formData.days = daySelect;
+    // Set exclude weekends to false if schedule is set to weekly
+    if (formData.schedule_type === "Weekly") formData.exclude_weekends = false;
+
+    // console.log(JSON.stringify(formData, null, 5));
+    // return null;
 
     try {
       const response = await fetch(`${apiUrl}/api/habits/create`, {
@@ -185,16 +218,120 @@ const CreateHabit = () => {
                   onChange={handleFormChanges}
                 />
               </div>
-              <div className="flex flex-row items-center gap-2">
-                <IoIosAlarm className="text-white" />
-                <h3>Habit Scheduling</h3>
+
+              {/* Habit Schedule */}
+              <div
+                className={`flex flex-col bg-black/50 backdrop-blur-md p-4 rounded-xl transition-all duration-300 gap-2 ${
+                  formData.name.trim() !== "" &&
+                  formData.category.trim() !== "" &&
+                  formData.user_context.trim() !== ""
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95"
+                }`}
+              >
+                {" "}
+                <div className="flex flex-row gap-2">
+                  <IoIosAlarm className={`h-6 w-6 text-${globalTheme}-600 `} />
+                  <h3 className="text-gray-100">Habit Scheduling</h3>
                 </div>
-              <div className="col-span-2 mt-10  flex justify-center items-center">
-                <button className="custom-button flex">
-                  <MdOutlineAddCircle className="w-[30px] h-[30px]" />{" "}
-                  <span className="font-bold">Create New Habit</span>
-                </button>
+                <div className="flex flex-row mt-3  gap-5">
+                  <RadioGroup
+                    className="w-full"
+                    defaultValue="Daily"
+                    name="schedule_radio"
+                    color="primary"
+                    orientation="vertical"
+                    onChange={handleFormChanges}
+                  >
+                    <div
+                      className={`${
+                        formData.schedule_radio === "Daily"
+                          ? `bg-${globalTheme}-600`
+                          : "bg-black/20 border-white/15 border-1"
+                      } p-4 rounded-xl w-full flex`}
+                    >
+                      {" "}
+                      <Radio
+                        value="Daily"
+                        description={
+                          <span className="text-gray-200">
+                            Ideal to quickly improve on any given task
+                          </span>
+                        }
+                      >
+                        <span className={`font-bold text-gray-100 `}>
+                          Daily Repeat
+                        </span>
+                      </Radio>
+                    </div>
+
+                    <div
+                      className={`${
+                        formData.schedule_radio === "Weekly"
+                          ? `bg-${globalTheme}-600`
+                          : "bg-black/20 border-white/15 border-1"
+                      } p-4 rounded-xl w-full flex`}
+                    >
+                      <Radio
+                        value="Weekly"
+                        description={
+                          <span className="text-gray-300">
+                            For tasks that require less focus
+                          </span>
+                        }
+                      >
+                        <span className={`font-bold text-gray-100 `}>
+                          Weekly Repeat
+                        </span>
+                      </Radio>
+                    </div>
+                  </RadioGroup>
+                </div>
+                <div className="mt-5">
+                  {formData.schedule_radio === "Daily" && (
+                    <Switch
+                      defaultChecked={formData.exclude_weekends}
+                      name="exclude_weekends"
+                      onChange={handleFormChanges}
+                      color="default"
+                      size="sm"
+                    >
+                      Exclude Weekends
+                    </Switch>
+                  )}
+
+                  {formData.schedule_radio === "Weekly" && (
+                    <div className="flex flex-col gap-3 mb-4">
+                      Select active days
+                      <div className="bg-black/30 py-4 p-3 flex rounded-md items-center justify-center ">
+                        <CheckboxGroup
+                          label=""
+                          color="default"
+                          value={daySelect}
+                          onValueChange={setDaySelect}
+                          orientation="horizontal"
+                        >
+                          <Checkbox value="Monday">Mon </Checkbox>
+                          <Checkbox value="Tuesday">Tue </Checkbox>
+                          <Checkbox value="Wednesday">Wed </Checkbox>
+                          <Checkbox value="Thursday">Thu </Checkbox>
+                          <Checkbox value="Friday">Fri </Checkbox>
+                          <Checkbox value="Saturday">Sat </Checkbox>
+                          <Checkbox value="Sunday">Sun </Checkbox>
+                        </CheckboxGroup>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="col-span-2 mt-10  flex justify-center mb-4 items-center">
+                  <button className="custom-button flex">
+                    <MdOutlineAddCircle className="w-[30px] h-[30px]" />{" "}
+                    <span className="font-bold">Create New Habit</span>
+                  </button>
+                </div>
               </div>
+
+              {/* Habit Schedule */}
             </form>
           </div>
           <div className="w-full mt-10 h-[500px] bg-white/10 backdrop-blur-sm rounded-xl p-4">

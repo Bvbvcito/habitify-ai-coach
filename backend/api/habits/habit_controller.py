@@ -15,7 +15,6 @@ habit_service = HabitService()
 @habits_bp.route('/get/<user_id>', methods=['GET'])
 def get_habits_data(user_id):
 
-
     # Return Habits or error if repo raises error -> Json
     try:
         habits = habit_service.get_user_habits(user_id)

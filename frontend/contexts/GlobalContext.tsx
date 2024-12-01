@@ -42,7 +42,6 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   // Update local storage whenever the theme changes
   useEffect(() => {
     localStorage.setItem("globalTheme", globalTheme);
-    console.log("Changing Theme: ", globalTheme);
   }, [globalTheme]);
 
   return (
