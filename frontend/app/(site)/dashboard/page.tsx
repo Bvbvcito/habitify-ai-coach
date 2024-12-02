@@ -13,25 +13,27 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 
 // NextUI imports
 import { CircularProgress } from "@nextui-org/react";
+import HabitBarChart from "@/components/habits/HabitDistribution";
 
 const DashBoard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState("");
   const [habitsModal, setHabitsModal] = useState(false);
   const [habitId, setHabitId] = useState("");
+  const [habitCat, setHabitCat] = useState({});
 
   // Global theme color setter and getter
   const { globalTheme } = useGlobalContext();
-  
+
   // Date selection managemenent
-  const [date, SetDate] = useState(getFormattedDate(new Date()))
+  const [date, SetDate] = useState(getFormattedDate(new Date()));
 
   /**
    * Function to retrieve user information from the ProtectedRoute middleware
    */
   const handleAuthSuccess = async (user_details: User) => {
     const token = await user_details.getIdToken();
-    setToken(token)
+    setToken(token);
     setUser(user_details); // Store the user info in state
   };
 
@@ -75,7 +77,12 @@ const DashBoard = () => {
             <div className="sm:w-2/5 min-h-full  w-full">
               <div className="bg-white/10 border text-white w-full h-full border-white/15 backdrop-blur-md flex flex-col transition-all rounded-3xl py-4 px-4 sm:col-span-3 row-span-2">
                 <h3 className="mb-4">Active Habits for {date}</h3>
-                <ListHabits token={token} user_id={user.uid} setHabitId={setHabitId} />
+                <ListHabits
+                  token={token}
+                  user_id={user.uid}
+                  setHabitId={setHabitId}
+                  setHabitCat={setHabitCat}
+                />
               </div>
             </div>
             {/* Habits List */}
@@ -104,8 +111,15 @@ const DashBoard = () => {
                   </div>
                 </div>
                 <div className="flex h-full w-full">
-                  <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl py-4 px-4 sm:col-span-2 min-h-[150px] ">
-                    <h3 className="mb-4">Streaks</h3>
+                  <div className="bg-white/10 border text-white w-full border-white/15 backdrop-blur-md transition-all rounded-3xl  py-4 px-4 sm:col-span-2 min-h-[150px] ">
+                    <h3 className="mb-4">Habits Distribution</h3>
+                    <div className="flex h-full w-full items-center justify-center">
+                      {/* Categories Chart */}
+                      {Object.keys(habitCat).length > 0 && (
+                        <HabitBarChart habitCat={habitCat} />
+                      )}
+                      {/* Categories Chart */}
+                    </div>
                   </div>
                 </div>
               </div>

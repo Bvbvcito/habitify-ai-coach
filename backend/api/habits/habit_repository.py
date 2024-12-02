@@ -32,7 +32,7 @@ class HabitRepository():
         """
         Retrieves one habit instance associated with a specific user from the database.
         Args:
-            user_id (str): The unique identifier of the user whose habits are to be fetched.
+            user_id (str): The unique identifier of the user whose habit is to be fetched.
         Returns:
             list[Habit]: A list of Habit objects representing the user's habits.
         """
@@ -87,21 +87,71 @@ class HabitRepository():
 if __name__ == '__main__':
     repo = HabitRepository()
     
-# Sample user ID
+    # Sample user ID 
     user_id = "ftF9zAP9HYfgrnhaCyNdsz8uqvC3"
     habit_id = "UQUxBrReVFi7pjUjxS9K"
 
-    # # Create a Habit instance
-    # habit = Habit(
-    #     name="Morning Run",
-    #     category="Health & Wellness",
-    #     color="#FF5733",
-    #     icon="🏃",
-    #     schedule_type="daily",
-    #     user_context="user_context_example",
-    #     exclude_weekends=False,
-    # )
+    # Define multiple habits
+    habits = [
+        Habit(
+            name="Morning Run",
+            category="Health & Wellness",
+            color="#007BFF",
+            icon="FaHeartbeat",
+            schedule_type="daily",
+            user_context="Morning Jog in Geneva Switzerland",
+            exclude_weekends=False,
+        ),
 
-    test = repo.get_one_habit(user_id=user_id, habit_id=habit_id)
-    print(test)
+        Habit(
+            name="Evening Gym Traning",
+            category="Health & Wellness",
+            color="#007BFF",
+            icon="FaHeartbeat",
+            schedule_type="daily",
+            user_context="30 minutes upper body program for my evening traning.",
+            exclude_weekends=False,
+        ),
+        Habit(
+            name="Train Python",
+            category="Productivity & Focus",
+            color="#0EA34A",
+            icon="FaTasks",
+            schedule_type="daily",
+            user_context="Give me some python exercises with code example. Short",
+            exclude_weekends=False,
+        ),
+        Habit(
+            name="Read about mathematics",
+            category="Learning & Growth",
+            color="#FF1493",
+            icon="FaBookOpen",
+            schedule_type="weekly",
+            user_context="Give me some book suggestions to get deeper insight on maths.",
+            exclude_weekends=True,
+        ),
+        Habit(
+            name="Network on Linkedin",
+            category="Relationships & Social",
+            color="#ff7800",
+            icon="FaUsers",
+            schedule_type="daily",
+            user_context="Give me advices to make my linkedin network grow. You can give me posts ideas on the dev topic.",
+            exclude_weekends=False,
+        ),
+        Habit(
+            name="Guided Meditation",
+            category="Mindfulness & Spirituality",
+            color="#AF3AD6",
+            icon="FaSpa",
+            schedule_type="daily",
+            user_context="Create a 10 minute guided meditation routine with a theme.",
+            exclude_weekends=False,
+        ),
+    ]
+
+    # Add multiple habits for testing purposes
+    for habit in habits:
+        test = repo.add_new_habit(user_id=user_id, habit=habit)
+        print(f"Added habit: {test.name} with ID: {test.id}")
     

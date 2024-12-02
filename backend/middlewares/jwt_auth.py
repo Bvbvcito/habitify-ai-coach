@@ -1,13 +1,11 @@
 from flask import request, jsonify
-import firebase_admin
 from firebase_admin import credentials, auth
 
 import os, sys
 # Construct the absolute path to the service account JSON
 config_path = os.path.join(os.path.dirname(__file__), "..", "config", "firebase_credentials.json")
 
-# Initialize Firebase Admin
-cred = credentials.Certificate(config_path)
+
 
 def token_required(f):
     def decorator(*args, **kwargs):
@@ -26,7 +24,7 @@ def token_required(f):
             request.user = decoded_token  # Attach user info to the request
         except Exception as e:
             return jsonify({"error": "Invalid or expired token", "message": str(e)}), 401
-        print("Success decodinc JWT Token")
+        print("Success validating JWT Token")
         return f(*args, **kwargs)
     decorator.__name__ = f.__name__
     return decorator

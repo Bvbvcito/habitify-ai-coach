@@ -31,8 +31,29 @@ class HabitService:
         """
         habits = self.repository.get_user_habits(user_id)
         
-        # Convert Habits Objects to Dicts
-        return [habit.to_dict() for habit in habits]
+        habit_dicts = []
+        category_counts = {}
+
+        for habit in habits:
+            habit_data = habit.to_dict()
+            habit_dicts.append(habit_data)
+            
+            # Update category count
+            category = habit_data.get('category', 'Uncategorized')  # Default to 'Uncategorized' if category is missing
+            color = habit_data.get('color', 'No Color')  # Default to 'No Color' if color is missing
+            
+            if category not in category_counts:
+                # Add the category with count and color only once
+                category_counts[category] = {"count": 0, "color": color}
+            
+            # Increment the count for the category
+            category_counts[category]["count"] += 1
+
+        # Return both the list of habit dictionaries and category counts
+        return {
+            "habits": habit_dicts,
+            "category_counts": category_counts
+        }
     
     def get_one_habit(self, user_id: str, habit_id:str) -> Habit:
         return self.repository.get_one_habit(user_id, habit_id)

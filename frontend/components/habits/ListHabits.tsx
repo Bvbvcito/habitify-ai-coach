@@ -4,6 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoAddCircleSharp } from "react-icons/io5";
 import Link from "next/link";
 
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  cn,
+} from "@nextui-org/react";
+
 // Import Needed Icons
 import {
   FaBookOpen,
@@ -15,7 +24,10 @@ import {
   FaSpa,
   FaTasks,
   FaUsers,
+  FaCheckCircle,
 } from "react-icons/fa";
+
+import { MdCancel } from "react-icons/md";
 
 interface Habit {
   id: string;
@@ -50,14 +62,17 @@ const DynamicIcon = ({
   return IconComponent ? <IconComponent className={className} /> : null;
 };
 
+// Main Component Function
 const ListHabits = ({
   user_id,
   token,
   setHabitId,
+  setHabitCat,
 }: {
   user_id: string;
   token: string;
   setHabitId: (id: string) => void;
+  setHabitCat: {};
 }) => {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [nohabit, setNoHabits] = useState(false);
@@ -114,8 +129,11 @@ const ListHabits = ({
         const result = await response.json();
         console.log(result.length);
         // Set no habits to true if there are no habits to display
-        if (result.length === 0) setNoHabits(true);
-        if (isMounted) setHabits(result);
+        if (result.habits.length === 0) setNoHabits(true);
+        if (isMounted) {
+          setHabits(result.habits);
+          setHabitCat(result.category_counts);
+        }
       } catch (error) {
         console.error(error);
       } finally {
@@ -219,11 +237,39 @@ const ListHabits = ({
                 </div>
               )}
               <div className="flex flex-row gap-1 ml-3 justify-end items-end">
-                <IoMdSettings
-                  onClick={(event) => deleteHabit(event, user_id, habit.id)}
-                  aria-label="Delete Habit"
-                  className="text-white/20 w-8 h-8 group-hover:text-white/80 hover:bg-white/30 p-1 rounded-full transition-all duration-100"
-                />
+                <Dropdown className="bg-black/60 backdrop-blur-md">
+                  <DropdownTrigger>
+                    <IoMdSettings
+                      // onClick={(event) => deleteHabit(event, user_id, habit.id)}
+                      aria-label="Delete Habit"
+                      className="text-white/20 w-8 h-8 group-hover:text-white/80 hover:bg-white/30 p-1 rounded-full transition-all duration-100 "
+                    />
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="Static Actions" variant="solid">
+                    <DropdownItem
+                      className="flex items-center justify-center"
+                      description="Complete habit and give feedback"
+                      startContent={
+                        <FaCheckCircle className="text-green-600 h-5 w-5 mr-2" />
+                      }
+                      key="new"
+                    >
+                      Mark as completed
+                    </DropdownItem>
+                    <DropdownItem
+                      className="flex items-center justify-center"
+                      key="delete"
+                      description="Warning, this is permanent"
+                      startContent={
+                        <MdCancel className="text-red-500 h-6 w-6 mr-2" />
+                      }
+                      color="primary"
+                      onClick={(event) => deleteHabit(event, user_id, habit.id)}
+                    >
+                      Delete Habit
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </div>
             </motion.div>
           ))}
