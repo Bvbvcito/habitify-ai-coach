@@ -4,6 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoAddCircleSharp } from "react-icons/io5";
 import Link from "next/link";
 
+// Import Needed Icons
+import {
+  FaBookOpen,
+  FaCarrot,
+  FaHeartbeat,
+  FaHome,
+  FaPalette,
+  FaPiggyBank,
+  FaSpa,
+  FaTasks,
+  FaUsers,
+} from "react-icons/fa";
+
 interface Habit {
   id: string;
   name: string;
@@ -12,6 +25,30 @@ interface Habit {
   category: string;
   user_context: string;
 }
+
+// Icon mapping for resolving string to React component
+const iconMapping: Record<string, React.FC<{ className?: string }>> = {
+  FaBookOpen,
+  FaCarrot,
+  FaHeartbeat,
+  FaHome,
+  FaPalette,
+  FaPiggyBank,
+  FaSpa,
+  FaTasks,
+  FaUsers,
+};
+
+const DynamicIcon = ({
+  iconName,
+  className,
+}: {
+  iconName: string;
+  className?: string;
+}) => {
+  const IconComponent = iconMapping[iconName];
+  return IconComponent ? <IconComponent className={className} /> : null;
+};
 
 const ListHabits = ({
   user_id,
@@ -39,7 +76,11 @@ const ListHabits = ({
     try {
       const response = await fetch(`${apiUrl}/api/habits/delete`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include token if needed
+        },
+
         body: JSON.stringify({ user_id, habit_id }),
       });
 
@@ -58,14 +99,14 @@ const ListHabits = ({
 
   useEffect(() => {
     let isMounted = true;
-    
+
     async function fetchHabits() {
       try {
         const response = await fetch(`${apiUrl}/api/habits/get/${user_id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`, // Include token if needed
+            Authorization: `Bearer ${token}`, // Include token if needed
           },
         });
         if (!response.ok)
@@ -157,11 +198,11 @@ const ListHabits = ({
             >
               <div
                 style={{ backgroundColor: habit.color }}
-                className="flex-shrink-0 text-white rounded-full w-7 h-7 flex items-center justify-center mr-3"
+                className="flex-shrink-0 text-white rounded-full w-9 h-9 flex items-center justify-center mr-3"
               >
-                <IoMdSettings
-                  // onClick={() => alert(`Task: ${habit.id} - User: ${user_id}`)}
-                  className="text-white w-5 h-5 group-hover:text-white/80"
+                <DynamicIcon
+                  iconName={habit.icon}
+                  className="text-white w-7 h-7 p-1 group-hover:text-white/80"
                 />
               </div>
               {selectedHabitId === habit.id ? (

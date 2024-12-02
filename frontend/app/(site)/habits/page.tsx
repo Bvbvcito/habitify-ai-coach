@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import useAuth from "@/hooks/useAuth";
 
 // Static Categories
 import { habitCategories } from "@/data/habitCategories";
@@ -34,13 +33,11 @@ import { IoIosAlarm } from "react-icons/io";
 import HabitRecap from "@/components/habits/HabitRecap";
 
 const CreateHabit = () => {
-  // Initialize JWT Token
-  const { token } = useAuth();
-
   //Initialize Router
   const router = useRouter();
   // Get user data
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState("");
   // API URL
   const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
   // Check form errors
@@ -69,6 +66,12 @@ const CreateHabit = () => {
     description: "",
     schedule_radio: "Daily",
   });
+
+  const handleAuthSuccess = async (user_details: User) => {
+    const token = await user_details.getIdToken();
+    setToken(token);
+    setUser(user_details); // Store the user info in state
+  };
 
   //Pass UID to form Data
   useEffect(() => {
@@ -131,6 +134,7 @@ const CreateHabit = () => {
       const response = await fetch(`${apiUrl}/api/habits/create`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`, //Insert JWT Token
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -153,7 +157,7 @@ const CreateHabit = () => {
   };
 
   return (
-    <ProtectedRoute onAuthSuccess={(user) => setUser(user)}>
+    <ProtectedRoute onAuthSuccess={handleAuthSuccess}>
       <>
         <h1>Create New Habit</h1>
         {formerror && (

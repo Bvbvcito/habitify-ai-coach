@@ -5,6 +5,8 @@ from pprint import pprint
 from .habit_service import HabitService
 from .habit import Habit
 
+from middlewares.jwt_auth import token_required 
+
 # Initialiaze a Blueprint for habits
 habits_bp = Blueprint('habits', __name__, url_prefix='/api/habits')
 
@@ -13,6 +15,7 @@ habit_service = HabitService()
 
 #Get all habits for logged user
 @habits_bp.route('/get/<user_id>', methods=['GET'])
+@token_required
 def get_habits_data(user_id):
     # Print the token from the Authorization header
     auth_header = request.headers.get('Authorization')
@@ -26,7 +29,7 @@ def get_habits_data(user_id):
 
 #Add a new habit
 @habits_bp.route('/create', methods=['POST'])
-
+@token_required
 def add_new_habit():
     data = request.json
     try:
@@ -40,6 +43,7 @@ def add_new_habit():
 
 #Delete a habit
 @habits_bp.route('/delete', methods=['POST'])
+@token_required
 def delete_habit():
     data = request.json
     try:
