@@ -9,26 +9,26 @@ export const habitCategories: HabitCategory[] = [
   {
     name: "Health & Wellness",
     description: "Physical and mental health, self-care, fitness, hydration.",
-    color: "#7834F6",
+    color: "#007BFF",
     icon: "FaHeartbeat",
   },
   {
     name: "Productivity & Focus",
     description: "Work, study, planning, time management, and task completion.",
-    color: "#3161A4",
+    color: "#0EA34A",
     icon: "FaTasks",
   },
   {
     name: "Learning & Growth",
     description:
       "Education, skill-building, reading, and continuous improvement.",
-    color: "#B639DC",
+    color: "#FF1493",
     icon: "FaBookOpen",
   },
   {
     name: "Relationships & Social",
     description: "Family time, friendships, socializing, and networking.",
-    color: "#70E8A8",
+    color: "#ff7800",
     icon: "FaUsers",
   },
   {

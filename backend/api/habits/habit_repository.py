@@ -22,8 +22,10 @@ class HabitRepository():
 
         # Reference the user's habits subcollection using the user_id
         user_habits = self.dbcollection.document(user_id).collection('habits')
-        
+        # Order by category name
+        user_habits = user_habits.order_by("category", direction="ASCENDING")
         habits  = user_habits.get()
+        
 
         # If there are habits, return an array of Habit objects
         return [Habit.from_dict(habit.to_dict(), habit.id) for habit in habits]
@@ -154,4 +156,7 @@ if __name__ == '__main__':
     for habit in habits:
         test = repo.add_new_habit(user_id=user_id, habit=habit)
         print(f"Added habit: {test.name} with ID: {test.id}")
+
+    # test = repo.get_user_habits(user_id=user_id)
+    # print(test)
     
