@@ -14,6 +14,8 @@ habit_service = HabitService()
 #Get all habits for logged user
 @habits_bp.route('/get/<user_id>', methods=['GET'])
 def get_habits_data(user_id):
+    # Print the token from the Authorization header
+    auth_header = request.headers.get('Authorization')
 
     # Return Habits or error if repo raises error -> Json
     try:

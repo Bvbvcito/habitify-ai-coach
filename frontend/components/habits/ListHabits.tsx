@@ -3,7 +3,6 @@ import { IoMdSettings } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoAddCircleSharp } from "react-icons/io5";
 import Link from "next/link";
-import { select } from "@nextui-org/react";
 
 interface Habit {
   id: string;
@@ -16,9 +15,11 @@ interface Habit {
 
 const ListHabits = ({
   user_id,
+  token,
   setHabitId,
 }: {
   user_id: string;
+  token: string;
   setHabitId: (id: string) => void;
 }) => {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -57,10 +58,16 @@ const ListHabits = ({
 
   useEffect(() => {
     let isMounted = true;
-
+    
     async function fetchHabits() {
       try {
-        const response = await fetch(`${apiUrl}/api/habits/get/${user_id}`);
+        const response = await fetch(`${apiUrl}/api/habits/get/${user_id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // Include token if needed
+          },
+        });
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
         const result = await response.json();
