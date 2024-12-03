@@ -49,6 +49,7 @@ class AssistantService:
             Keep your answers quite short.
             Always start your answer with a h1 title.
             """,
+            
             """
             You answer with beautifully formatted html, starting with a div with class chat-response.
             Do not add: ```html at the beginning and the end.
@@ -56,9 +57,8 @@ class AssistantService:
             Always suggest practical examples when asked about the task.
             Answers should be helful but concise.
             Always start your answer with a h1 title.
-
-
             """,
+
             """
             You answer with beautifully formatted html, starting with a div with class chat-response.
             Do not add: ```html at the beginning and the end.
@@ -66,11 +66,10 @@ class AssistantService:
             Always suggest practical examples when asked about the task and do not end by asking a question.
             Answers should be readable pretty quickly.
             Always start your answer with a h1 title.
-
-
             """
         ]
 
+        # Retreive user id and habit id to create prompt
         habit_id = data.get("habit_id")
         user_id = data.get("user_id")
         

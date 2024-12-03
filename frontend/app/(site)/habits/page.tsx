@@ -132,8 +132,12 @@ const CreateHabit = () => {
     // return null;
 
     try {
-      const { success, data, error } = await createHabit(apiUrl, token, formData);
-  
+      const { success, data, error } = await createHabit(
+        apiUrl,
+        token,
+        formData
+      );
+
       if (success) {
         console.log(data);
         router.push("/dashboard");

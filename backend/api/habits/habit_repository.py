@@ -140,7 +140,7 @@ if __name__ == '__main__':
             color="#0EA34A",
             icon="FaCode",
             schedule_type="daily",
-            user_context="Give me ideas of trending fontend languages to train",
+            user_context="Give me ideas of trending fontend languages to train and list ressources with links",
             exclude_weekends=False,
         ),
         Habit(

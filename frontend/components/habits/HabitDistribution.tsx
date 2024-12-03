@@ -33,7 +33,7 @@ const HabitBarChart = ({ habitCat }) => {
     labels: labels,
     datasets: [
       {
-        label: "Habit Categories",
+        label: "Number of habits",
         data: data,
         backgroundColor: backgroundColors, // Use dynamic colors
         borderWidth: 1,
