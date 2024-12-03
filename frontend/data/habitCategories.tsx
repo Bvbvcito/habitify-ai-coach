@@ -16,7 +16,7 @@ export const habitCategories: HabitCategory[] = [
     name: "Productivity & Focus",
     description: "Work, study, planning, time management, and task completion.",
     color: "#0EA34A",
-    icon: "FaTasks",
+    icon: "FaCode",
   },
   {
     name: "Learning & Growth",

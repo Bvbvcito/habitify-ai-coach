@@ -106,6 +106,16 @@ if __name__ == '__main__':
         ),
 
         Habit(
+            name="Marathon Training",
+            category="Health & Wellness",
+            color="#007BFF",
+            icon="FaHeartbeat",
+            schedule_type="daily",
+            user_context="Give me some tips to increase my VO2 Max for my marathon training.",
+            exclude_weekends=False,
+        ),
+
+        Habit(
             name="Evening Gym Traning",
             category="Health & Wellness",
             color="#007BFF",
@@ -118,9 +128,19 @@ if __name__ == '__main__':
             name="Train Python",
             category="Productivity & Focus",
             color="#0EA34A",
-            icon="FaTasks",
+            icon="FaCode",
             schedule_type="daily",
             user_context="Give me some python exercises with code example. Short",
+            exclude_weekends=False,
+        ),
+
+        Habit(
+            name="Learn a new coding language",
+            category="Productivity & Focus",
+            color="#0EA34A",
+            icon="FaCode",
+            schedule_type="daily",
+            user_context="Give me ideas of trending fontend languages to train",
             exclude_weekends=False,
         ),
         Habit(
