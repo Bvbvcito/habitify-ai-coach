@@ -3,6 +3,7 @@ import { IoMdSettings } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoAddCircleSharp } from "react-icons/io5";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import {
   Dropdown,
@@ -33,6 +34,7 @@ import {
   FaUsers,
   FaCheckCircle,
   FaCode,
+  FaEdit,
 } from "react-icons/fa";
 
 import { MdCancel } from "react-icons/md";
@@ -90,6 +92,7 @@ const ListHabits = ({
   const [selectedHabitId, setSelectedHabitId] = useState(null); // Track selected habit
   const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
 
   const deleteHabit = async (
     event: React.MouseEvent<SVGElement>, // Accept event
@@ -365,6 +368,17 @@ const ListHabits = ({
                     >
                       Mark as completed
                     </DropdownItem>
+                    {/* <DropdownItem
+                      onClick={() => router.push(`/habits/?id=${habit.id}`)} // Directly navigate to the edit page
+                      className="flex items-center justify-center"
+                      description="Edit habit details"
+                      startContent={
+                        <FaEdit className=" h-5 w-5 mr-2 text-slate-500" />
+                      }
+                      key="edit"
+                    >
+                      Edit Habit
+                    </DropdownItem> */}
                     <DropdownItem
                       className="flex items-center justify-center"
                       key="delete"
