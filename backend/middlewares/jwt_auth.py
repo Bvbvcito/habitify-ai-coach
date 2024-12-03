@@ -2,13 +2,13 @@ from flask import request, jsonify
 from firebase_admin import credentials, auth
 
 import os, sys
-# Construct the absolute path to the service account JSON
-config_path = os.path.join(os.path.dirname(__file__), "..", "config", "firebase_credentials.json")
+# config_path = os.path.join(os.path.dirname(__file__), "..", "config", "firebase_credentials.json")
 
 
 
 def token_required(f):
     def decorator(*args, **kwargs):
+        # Get Token from request header
         auth_header = request.headers.get("Authorization")
         if not auth_header:
             return jsonify({"error": "Authorization header is missing"}), 401

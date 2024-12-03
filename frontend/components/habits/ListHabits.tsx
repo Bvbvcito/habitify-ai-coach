@@ -9,8 +9,8 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Button,
-  cn,
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,
+  Textarea
 } from "@nextui-org/react";
 
 // Import Needed Icons
@@ -80,6 +80,7 @@ const ListHabits = ({
   const [refreshHabits, setRefreshHabits] = useState(false);
   const [selectedHabitId, setSelectedHabitId] = useState(null); // Track selected habit
   const apiUrl = process.env.NEXT_PUBLIC_FLASK_API_URL;
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   const deleteHabit = async (
     event: React.MouseEvent<SVGElement>, // Accept event
@@ -151,6 +152,52 @@ const ListHabits = ({
 
   return (
     <div className="flex w-full  flex-col gap-1">
+
+<Modal isOpen={isOpen} onOpenChange={onOpenChange}         classNames={{
+          body: "py-6",
+          backdrop: "bg-black/70 backdrop-opacity-40",
+          base: "border-[#292f46] bg-slate-800 dark:bg-[#19172c] text-[#a8b0d3]",
+          header: "border-b-[1px] border-[#292f46]",
+          footer: "border-t-[1px] border-[#292f46]",
+          closeButton: "hover:bg-white/5 active:bg-white/10",
+        }}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+              
+              Complete task:&nbsp;
+              {habits.find(habit => habit.id === selectedHabitId) ? (
+        <>
+            {habits.find(habit => habit.id === selectedHabitId).name}
+
+        </>
+      ) : (
+        "Habit not found."
+      )}
+              
+              </ModalHeader>
+              <ModalBody>
+              <Textarea
+      label="Habit Feedback"
+      placeholder="Please enter some feedback, how did it go?"
+      className="flex w-full h-full"
+    />
+
+              </ModalBody>
+              <ModalFooter>
+                <Button className="bg-slate-700 text-white" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button className="bg-green-500 text-white" onPress={onClose}>
+                  Complete Habit
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
       {/*  Display empty call to action if there are no habits */}
       {nohabit && (
         <Link href="/habits">
@@ -194,7 +241,6 @@ const ListHabits = ({
             <motion.div
               onClick={() => {
                 setHabitId(habit.id);
-                setSelectedHabitId(habit.id);
               }}
               whileHover={{
                 scale: 1.05,
@@ -247,6 +293,10 @@ const ListHabits = ({
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Static Actions" variant="solid">
                     <DropdownItem
+                      onClick={() => {
+                        onOpen();
+                        setSelectedHabitId(habit.id);
+                      }}
                       className="flex items-center justify-center"
                       description="Complete habit and give feedback"
                       startContent={

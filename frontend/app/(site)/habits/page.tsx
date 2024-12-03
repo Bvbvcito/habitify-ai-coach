@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import ProtectedRoute from "@/components/auth/ProtectedRoutes";
 import { User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { createHabit } from "@/data/ApiParser";
 
 // Static Categories
 import { habitCategories } from "@/data/habitCategories";
@@ -131,28 +132,19 @@ const CreateHabit = () => {
     // return null;
 
     try {
-      const response = await fetch(`${apiUrl}/api/habits/create`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`, //Insert JWT Token
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log(result);
+      const { success, data, error } = await createHabit(apiUrl, token, formData);
+  
+      if (success) {
+        console.log(data);
         router.push("/dashboard");
       } else {
-        console.error("Error creating habit:", result);
-        if (result.message == "No Habit Name") {
+        console.error("Error creating habit:", error);
+        if (error.message === "No Habit Name") {
           // Display Error Message
         }
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Unexpected Error:", error);
     }
   };
 
