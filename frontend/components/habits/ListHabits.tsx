@@ -79,11 +79,13 @@ const ListHabits = ({
   token,
   setHabitId,
   setHabitCat,
+  setTotalHabits
 }: {
   user_id: string;
   token: string;
   setHabitId: (id: string) => void;
   setHabitCat: {};
+  setTotalHabits:number;
 }) => {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [nohabit, setNoHabits] = useState(false);
@@ -143,6 +145,7 @@ const ListHabits = ({
         console.log(result.length);
         // Set no habits to true if there are no habits to display
         if (result.habits.length === 0) setNoHabits(true);
+        setTotalHabits(result.habits.length)
         if (isMounted) {
           setHabits(result.habits);
           setHabitCat(result.category_counts);

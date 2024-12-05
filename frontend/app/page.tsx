@@ -46,13 +46,13 @@ export default function HomePage() {
         show={modal}
         edit_method="Add"
       />
-      <div className="container bg-gray-200 mx-auto h-full min-h-screen items-center justify-center flex flex-col">
-        <div className="text-slate-600 text-[2rem]">
-          <span className="font-normal">HOMEPAGE</span> GOES HERE
+      <div className="bg-gradient-to-br from-indigo-800 to-pink-900 text-white mx-auto h-full min-h-screen items-center justify-center flex flex-col">
+      <div className="text-slate-600 text-[2rem] w-[300px]">
+          <img src="/img/habitify_logo2.png" />
         </div>
-        <div>
+        <div className="text-white">
           <Link href="/signin">
-            <button className="text-slate-700 font-normal">
+            <button className="text-white ">
               Click Here To Sign In
             </button>
           </Link>

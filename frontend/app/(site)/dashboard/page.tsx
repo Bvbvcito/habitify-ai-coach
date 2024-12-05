@@ -21,6 +21,8 @@ const DashBoard = () => {
   const [habitsModal, setHabitsModal] = useState(false);
   const [habitId, setHabitId] = useState("");
   const [habitCat, setHabitCat] = useState({});
+  const [totalHabits, SetTotalHabits] = useState()
+  const initialHabits = 8;
 
   // Global theme color setter and getter
   const { globalTheme } = useGlobalContext();
@@ -82,6 +84,7 @@ const DashBoard = () => {
                   user_id={user.uid}
                   setHabitId={setHabitId}
                   setHabitCat={setHabitCat}
+                  setTotalHabits={SetTotalHabits}
                 />
               </div>
             </div>
@@ -101,7 +104,7 @@ const DashBoard = () => {
                           track: "stroke-white/10",
                           value: "text-3xl font-semibold text-white",
                         }}
-                        value={75}
+                        value={(initialHabits-totalHabits)/initialHabits*100}
                         strokeWidth={4}
                         showValueLabel={true}
                         aria-label="Completion Circle"
