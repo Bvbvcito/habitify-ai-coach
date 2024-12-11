@@ -18,15 +18,15 @@ const NavBar = () => {
     <nav
       className={`sm:mx-5 sm:rounded-[35px]  sm:mt-10 bg-${globalTheme}-600 px-5 shadow-sm justify-between flex py-2 items-center`}
     >
-      <div className="">
-        <img
+      <Link href="/dashboard" prefetch={false}>
+      <img
           src="/img/habitify_logo2.png"
           className="w-[120px]"
-          alt="Habitness logo"
+          alt="Habitify logo"
         />
-      </div>
+        </Link>
       <ul
-        className={`bg-${globalTheme}-700 p-[2px] rounded-full gap-7 shadow-inner text-white items-center hidden sm:flex`}
+        className={`bg-${globalTheme}-700 p-[2px] rounded-full gap-7 shadow-[inset_0_0_4px_rgba(0,0,0,0.3)] text-white items-center hidden sm:flex`}
       >
         {/* Check if current URL is actual page */}
         {current_url == "/dashboard" ? (

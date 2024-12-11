@@ -4,8 +4,6 @@ import random
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-from config.firebase_config import db, DocumentReference, DocumentSnapshot
-from api.habits.habit import Habit
 from api.habits.habit_service import HabitService
 
 
@@ -82,12 +80,16 @@ class AssistantService:
         response = self.model.generate_content(f"{random.choice(sys_prompts)}\n\n{prompt}")
         return response.text
     
+    def basic_chat(self, prompt):
+        response = self.model.generate_content(f"{self.sys_prompt} {prompt}")
+        return response.text
+    
     def model_info(self)->str:
         return(self.model_name)
-    
+
 if __name__ == "__main__":
-    assistant = AssistantService(sys_prompt="you answer with beautifully formatted html without head and body, start with a div")
-    test = assistant.chat("What is the color of the sky?")
+    assistant = AssistantService(sys_prompt="You are an assistant that summarizes data")
+    test = assistant.basic_chat(f"Microsoft Corporation develops and supports software, services, devices and solutions worldwide. The Productivity and Business Processes segment offers office, exchange, SharePoint, Microsoft Teams, office 365 Security and Compliance, Microsoft viva, and Microsoft 365 copilot; and office consumer services, such as Microsoft 365 consumer subscriptions, Office licensed on-premises, and other office services. This segment also provides LinkedIn; and dynamics business solutions, including Dynamics 365, a set of intelligent, cloud-based applications across ERP, CRM, power apps, and power automate; and on-premises ERP and CRM applications. The Intelligent Cloud segment offers server products and cloud services, such as azure and other cloud services; SQL and windows server, visual studio, system center, and related client access licenses, as well as nuance and GitHub; and enterprise services including enterprise support services, industry solutions, and nuance professional services. The More Personal Computing segment offers Windows, including windows OEM licensing and other non-volume licensing of the Windows operating system; Windows commercial comprising volume licensing of the Windows operating system, windows cloud services, and other Windows commercial offerings; patent licensing; and windows Internet of Things; and devices, such as surface, HoloLens, and PC accessories. Additionally, this segment provides gaming, which includes Xbox hardware and content, and first- and third-party content; Xbox game pass and other subscriptions, cloud gaming, advertising, third-party disc royalties, and other cloud services; and search and news advertising, which includes Bing, Microsoft News and Edge, and third-party affiliates. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online, and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington.")
     print(test)
 
     assistant.model_info()

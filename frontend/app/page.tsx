@@ -50,10 +50,10 @@ export default function HomePage() {
       <div className="text-slate-600 text-[2rem] w-[300px]">
           <img src="/img/habitify_logo2.png" />
         </div>
-        <div className="text-white">
+        <div className="text-white text-sm flex mx-auto">
           <Link href="/signin">
-            <button className="text-white ">
-              Click Here To Sign In
+            <button className="text-white mt-5 ">
+              Create an account or <span className=" underline font-bold">Sign In</span>
             </button>
           </Link>
         </div>
